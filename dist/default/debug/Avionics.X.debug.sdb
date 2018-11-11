@@ -3,28 +3,33 @@
 [d edition pro ]
 [d chip 18F26K83 ]
 [d frameptr 4065 ]
-"22 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
-[e E26611 . `uc
-I2C1_GOOD 0
-I2C1_FAIL_TIMEOUT 1
-]
 "55 D:\Development\MPLABXProjects\Avionics.X\mcc_generated_files/i2c1.c
 [e E26612 . `uc
 I2C1_GOOD 0
 I2C1_FAIL_TIMEOUT 1
 ]
-"16 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
-[v _bmp280_i2c_init bmp280_i2c_init `(b  1 e 0 0 ]
-"25
-[v _bmp280_i2c_set_ctrl bmp280_i2c_set_ctrl `(v  1 e 1 0 ]
-"35
-[v _bmp280_i2c_set_conf bmp280_i2c_set_conf `(v  1 e 1 0 ]
-"154
-[v _bmp280_i2c_read_temp_i32 bmp280_i2c_read_temp_i32 `(l  1 e 4 0 ]
-"182
-[v _bmp280_i2c_read_press_raw bmp280_i2c_read_press_raw `(l  1 e 4 0 ]
-"199
-[v _bmp280_i2c_read_press_i32 bmp280_i2c_read_press_i32 `(l  1 e 4 0 ]
+"17 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
+[e E26611 . `uc
+I2C1_GOOD 0
+I2C1_FAIL_TIMEOUT 1
+]
+"25 D:\Development\MPLABXProjects\Avionics.X\mpu9250.c
+[e E26611 . `uc
+I2C1_GOOD 0
+I2C1_FAIL_TIMEOUT 1
+]
+"13 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
+[v _bmp280_i2c_init bmp280_i2c_init `(uc  1 e 1 0 ]
+"31
+[v _bmp280_i2c_set_ctrl bmp280_i2c_set_ctrl `(uc  1 e 1 0 ]
+"45
+[v _bmp280_i2c_set_conf bmp280_i2c_set_conf `(uc  1 e 1 0 ]
+"226
+[v _bmp280_i2c_read_temp_i32 bmp280_i2c_read_temp_i32 `(uc  1 e 1 0 ]
+"256
+[v _bmp280_i2c_read_press_raw bmp280_i2c_read_press_raw `(uc  1 e 1 0 ]
+"277
+[v _bmp280_i2c_read_press_i32 bmp280_i2c_read_press_i32 `(uc  1 e 1 0 ]
 "62 D:\Software\Microchip\xc8\v1.45\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
 "86 D:\Software\Microchip\xc8\v1.45\sources\common\ftadd.c
@@ -47,12 +52,12 @@ I2C1_FAIL_TIMEOUT 1
 [v ___flmul __flmul `(d  1 e 3 0 ]
 "15 D:\Software\Microchip\xc8\v1.45\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"73 D:\Development\MPLABXProjects\Avionics.X\main.c
+"14 D:\Development\MPLABXProjects\Avionics.X\main.c
 [v _main main `(v  1 e 1 0 ]
 "57 D:\Development\MPLABXProjects\Avionics.X\mcc_generated_files/i2c1.c
 [v _I2C1_Initialize I2C1_Initialize `(v  1 e 1 0 ]
 "75
-[v _i2c1_getLastError i2c1_getLastError `(E26611  1 e 1 0 ]
+[v _i2c1_getLastError i2c1_getLastError `(E26612  1 e 1 0 ]
 "80
 [v _wait4Start wait4Start `T(v  1 s 1 wait4Start ]
 "100
@@ -67,6 +72,8 @@ I2C1_FAIL_TIMEOUT 1
 [v _wait4MDRSetcount wait4MDRSetcount `T(v  1 s 1 wait4MDRSetcount ]
 "203
 [v _i2c1_write1ByteRegister i2c1_write1ByteRegister `(v  1 e 1 0 ]
+"216
+[v _i2c1_write2ByteRegister i2c1_write2ByteRegister `(v  1 e 1 0 ]
 "247
 [v _i2c1_read1ByteRegister i2c1_read1ByteRegister `(uc  1 e 1 0 ]
 "294
@@ -79,14 +86,17 @@ I2C1_FAIL_TIMEOUT 1
 [v _PMD_Initialize PMD_Initialize `(v  1 e 1 0 ]
 "57 D:\Development\MPLABXProjects\Avionics.X\mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
-[s S246 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
-"13 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
-[v _bmp280_calib bmp280_calib `S246  1 s 24 bmp280_calib ]
-"14
-[v _bmp280_t_fine bmp280_t_fine `l  1 s 4 bmp280_t_fine ]
+"17 D:\Development\MPLABXProjects\Avionics.X\mpu9250.c
+[v _mpu9250_i2c_init mpu9250_i2c_init `(uc  1 e 1 0 ]
+"162
+[v _mpu9250_i2c_config_fs mpu9250_i2c_config_fs `(uc  1 e 1 0 ]
+"334
+[v _mpu9250_i2c_read_magneto_raw mpu9250_i2c_read_magneto_raw `(uc  1 e 1 0 ]
+"352
+[v _mpu9250_i2c_read_axes6_raw mpu9250_i2c_read_axes6_raw `(uc  1 e 1 0 ]
 "3960 D:\Software\Microchip\xc8\v1.45\include\pic18f26k83.h
 [v _LATA LATA `VEuc  1 e 1 @16314 ]
-[s S169 . 1 `uc 1 LATA0 1 0 :1:0 
+[s S533 . 1 `uc 1 LATA0 1 0 :1:0 
 `uc 1 LATA1 1 0 :1:1 
 `uc 1 LATA2 1 0 :1:2 
 `uc 1 LATA3 1 0 :1:3 
@@ -96,7 +106,7 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 LATA7 1 0 :1:7 
 ]
 "3987
-[s S178 . 1 `uc 1 LA0 1 0 :1:0 
+[s S542 . 1 `uc 1 LA0 1 0 :1:0 
 `uc 1 LA1 1 0 :1:1 
 `uc 1 LA2 1 0 :1:2 
 `uc 1 LA3 1 0 :1:3 
@@ -105,11 +115,11 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 LA6 1 0 :1:6 
 `uc 1 LA7 1 0 :1:7 
 ]
-[u S187 . 1 `S169 1 . 1 0 `S178 1 . 1 0 ]
-[v _LATAbits LATAbits `VES187  1 e 1 @16314 ]
+[u S551 . 1 `S533 1 . 1 0 `S542 1 . 1 0 ]
+[v _LATAbits LATAbits `VES551  1 e 1 @16314 ]
 "4072
 [v _LATB LATB `VEuc  1 e 1 @16315 ]
-[s S108 . 1 `uc 1 LATB0 1 0 :1:0 
+[s S472 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -119,7 +129,7 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 LATB7 1 0 :1:7 
 ]
 "4099
-[s S117 . 1 `uc 1 LB0 1 0 :1:0 
+[s S481 . 1 `uc 1 LB0 1 0 :1:0 
 `uc 1 LB1 1 0 :1:1 
 `uc 1 LB2 1 0 :1:2 
 `uc 1 LB3 1 0 :1:3 
@@ -128,13 +138,13 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 LB6 1 0 :1:6 
 `uc 1 LB7 1 0 :1:7 
 ]
-[u S126 . 1 `S108 1 . 1 0 `S117 1 . 1 0 ]
-[v _LATBbits LATBbits `VES126  1 e 1 @16315 ]
+[u S490 . 1 `S472 1 . 1 0 `S481 1 . 1 0 ]
+[v _LATBbits LATBbits `VES490  1 e 1 @16315 ]
 "4184
 [v _LATC LATC `VEuc  1 e 1 @16316 ]
 "4296
 [v _TRISA TRISA `VEuc  1 e 1 @16322 ]
-[s S148 . 1 `uc 1 TRISA0 1 0 :1:0 
+[s S512 . 1 `uc 1 TRISA0 1 0 :1:0 
 `uc 1 TRISA1 1 0 :1:1 
 `uc 1 TRISA2 1 0 :1:2 
 `uc 1 TRISA3 1 0 :1:3 
@@ -144,11 +154,11 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 TRISA7 1 0 :1:7 
 ]
 "4313
-[u S157 . 1 `S148 1 . 1 0 ]
-[v _TRISAbits TRISAbits `VES157  1 e 1 @16322 ]
+[u S521 . 1 `S512 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES521  1 e 1 @16322 ]
 "4358
 [v _TRISB TRISB `VEuc  1 e 1 @16323 ]
-[s S87 . 1 `uc 1 TRISB0 1 0 :1:0 
+[s S451 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
 `uc 1 TRISB3 1 0 :1:3 
@@ -158,8 +168,8 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 TRISB7 1 0 :1:7 
 ]
 "4375
-[u S96 . 1 `S87 1 . 1 0 ]
-[v _TRISBbits TRISBbits `VES96  1 e 1 @16323 ]
+[u S460 . 1 `S451 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES460  1 e 1 @16323 ]
 "4420
 [v _TRISC TRISC `VEuc  1 e 1 @16324 ]
 "26552
@@ -232,7 +242,7 @@ I2C1_FAIL_TIMEOUT 1
 [v _I2C1ADB1 I2C1ADB1 `VEuc  1 e 1 @15726 ]
 "45048
 [v _I2C1CON0 I2C1CON0 `VEuc  1 e 1 @15731 ]
-[s S379 . 1 `uc 1 MODE 1 0 :3:0 
+[s S81 . 1 `uc 1 MODE 1 0 :3:0 
 `uc 1 MDR 1 0 :1:3 
 `uc 1 CSTR 1 0 :1:4 
 `uc 1 S 1 0 :1:5 
@@ -240,24 +250,24 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 EN 1 0 :1:7 
 ]
 "45070
-[s S386 . 1 `uc 1 MODE0 1 0 :1:0 
+[s S88 . 1 `uc 1 MODE0 1 0 :1:0 
 `uc 1 MODE1 1 0 :1:1 
 `uc 1 MODE2 1 0 :1:2 
 `uc 1 . 1 0 :4:3 
 `uc 1 I2CEN 1 0 :1:7 
 ]
 "45070
-[u S392 . 1 `S379 1 . 1 0 `S386 1 . 1 0 ]
+[u S94 . 1 `S81 1 . 1 0 `S88 1 . 1 0 ]
 "45070
 "45070
-[v _I2C1CON0bits I2C1CON0bits `VES392  1 e 1 @15731 ]
+[v _I2C1CON0bits I2C1CON0bits `VES94  1 e 1 @15731 ]
 "45125
 [v _I2C1CON1 I2C1CON1 `VEuc  1 e 1 @15732 ]
 "45182
 [v _I2C1CON2 I2C1CON2 `VEuc  1 e 1 @15733 ]
 "45258
 [v _I2C1ERR I2C1ERR `VEuc  1 e 1 @15734 ]
-[s S421 . 1 `uc 1 . 1 0 :3:0 
+[s S123 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 D 1 0 :1:3 
 `uc 1 R 1 0 :1:4 
 `uc 1 MMA 1 0 :1:5 
@@ -265,26 +275,26 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 BFRE 1 0 :1:7 
 ]
 "45378
-[s S428 . 1 `uc 1 . 1 0 :3:0 
+[s S130 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 DATA 1 0 :1:3 
 `uc 1 READ 1 0 :1:4 
 ]
 "45378
-[s S432 . 1 `uc 1 . 1 0 :3:0 
+[s S134 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_ADDRESS 1 0 :1:3 
 `uc 1 NOT_WRITE 1 0 :1:4 
 ]
 "45378
-[s S436 . 1 `uc 1 . 1 0 :3:0 
+[s S138 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_A 1 0 :1:3 
 `uc 1 NOT_W 1 0 :1:4 
 ]
 "45378
-[u S440 . 1 `S421 1 . 1 0 `S428 1 . 1 0 `S432 1 . 1 0 `S436 1 . 1 0 ]
+[u S142 . 1 `S123 1 . 1 0 `S130 1 . 1 0 `S134 1 . 1 0 `S138 1 . 1 0 ]
 "45378
 "45378
-[v _I2C1STAT0bits I2C1STAT0bits `VES440  1 e 1 @15735 ]
-[s S465 . 1 `uc 1 RXBF 1 0 :1:0 
+[v _I2C1STAT0bits I2C1STAT0bits `VES142  1 e 1 @15735 ]
+[s S167 . 1 `uc 1 RXBF 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 CLRBF 1 0 :1:2 
 `uc 1 RXRE 1 0 :1:3 
@@ -294,13 +304,13 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 TXWE 1 0 :1:7 
 ]
 "45455
-[u S474 . 1 `S465 1 . 1 0 ]
+[u S176 . 1 `S167 1 . 1 0 ]
 "45455
 "45455
-[v _I2C1STAT1bits I2C1STAT1bits `VES474  1 e 1 @15736 ]
+[v _I2C1STAT1bits I2C1STAT1bits `VES176  1 e 1 @15736 ]
 "45485
 [v _I2C1PIR I2C1PIR `VEuc  1 e 1 @15737 ]
-[s S488 . 1 `uc 1 SCIF 1 0 :1:0 
+[s S190 . 1 `uc 1 SCIF 1 0 :1:0 
 `uc 1 RSCIF 1 0 :1:1 
 `uc 1 PCIF 1 0 :1:2 
 `uc 1 ADRIF 1 0 :1:3 
@@ -310,7 +320,7 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 CNTIF 1 0 :1:7 
 ]
 "45512
-[s S497 . 1 `uc 1 SC1IF 1 0 :1:0 
+[s S199 . 1 `uc 1 SC1IF 1 0 :1:0 
 `uc 1 RSC1IF 1 0 :1:1 
 `uc 1 PC1IF 1 0 :1:2 
 `uc 1 ADR1IF 1 0 :1:3 
@@ -320,49 +330,118 @@ I2C1_FAIL_TIMEOUT 1
 `uc 1 CNT1IF 1 0 :1:7 
 ]
 "45512
-[u S506 . 1 `S488 1 . 1 0 `S497 1 . 1 0 ]
+[u S208 . 1 `S190 1 . 1 0 `S199 1 . 1 0 ]
 "45512
 "45512
-[v _I2C1PIRbits I2C1PIRbits `VES506  1 e 1 @15737 ]
+[v _I2C1PIRbits I2C1PIRbits `VES208  1 e 1 @15737 ]
 "45689
 [v _I2C1CLK I2C1CLK `VEuc  1 e 1 @15739 ]
 "55 D:\Development\MPLABXProjects\Avionics.X\mcc_generated_files/i2c1.c
 [v _lastError lastError `E26612  1 s 1 lastError ]
-"73 D:\Development\MPLABXProjects\Avionics.X\main.c
+"14 D:\Development\MPLABXProjects\Avionics.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"80
-[v main@press press `l  1 a 4 68 ]
-"79
-[v main@temp temp `l  1 a 4 64 ]
-"88
-} 0
-"25 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
-[v _bmp280_i2c_set_ctrl bmp280_i2c_set_ctrl `(v  1 e 1 0 ]
-{
-[v bmp280_i2c_set_ctrl@osrs_t osrs_t `uc  1 a 1 wreg ]
-"26
-[v bmp280_i2c_set_ctrl@ctrl ctrl `uc  1 a 1 12 ]
-"25
-[v bmp280_i2c_set_ctrl@osrs_t osrs_t `uc  1 a 1 wreg ]
-[v bmp280_i2c_set_ctrl@osrs_p osrs_p `uc  1 p 1 5 ]
-[v bmp280_i2c_set_ctrl@mode mode `uc  1 p 1 6 ]
-"28
-[v bmp280_i2c_set_ctrl@osrs_t osrs_t `uc  1 a 1 11 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"17
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v main@bmp bmp `S333  1 a 29 22 ]
+[s S381 . 6 `i 1 x 2 0 `i 1 y 2 2 `i 1 z 2 4 ]
+"31
+[s S385 . 14 `S381 1 gyro 6 0 `ui 1 temp 2 6 `S381 1 accel 6 8 ]
+[v main@ax6raw ax6raw `S385  1 a 14 8 ]
+[s S357 . 1 `uc 1 a_fs 1 0 :2:0 
+`uc 1 g_fs 1 0 :2:2 
+`uc 1 m_fs 1 0 :1:4 
+]
+"23
+[s S361 . 6 `ui 1 x 2 0 `ui 1 y 2 2 `ui 1 z 2 4 ]
+[s S365 . 8 `uc 1 addr 1 0 `S357 1 scale 1 1 `S361 1 mag_factor 6 2 ]
+[v main@mpu mpu `S365  1 a 8 51 ]
 "33
+[v main@press press `l  1 a 4 4 ]
+"32
+[v main@temp temp `l  1 a 4 0 ]
+"41
 } 0
-"35
-[v _bmp280_i2c_set_conf bmp280_i2c_set_conf `(v  1 e 1 0 ]
+"352 D:\Development\MPLABXProjects\Avionics.X\mpu9250.c
+[v _mpu9250_i2c_read_axes6_raw mpu9250_i2c_read_axes6_raw `(uc  1 e 1 0 ]
 {
-[v bmp280_i2c_set_conf@t_sb t_sb `uc  1 a 1 wreg ]
-"36
-[v bmp280_i2c_set_conf@cfg cfg `uc  1 a 1 11 ]
-"35
-[v bmp280_i2c_set_conf@t_sb t_sb `uc  1 a 1 wreg ]
-[v bmp280_i2c_set_conf@filter filter `uc  1 p 1 5 ]
+[s S357 . 1 `uc 1 a_fs 1 0 :2:0 
+`uc 1 g_fs 1 0 :2:2 
+`uc 1 m_fs 1 0 :1:4 
+]
+[s S361 . 6 `ui 1 x 2 0 `ui 1 y 2 2 `ui 1 z 2 4 ]
+[s S365 . 8 `uc 1 addr 1 0 `S357 1 scale 1 1 `S361 1 mag_factor 6 2 ]
+[v mpu9250_i2c_read_axes6_raw@mpu mpu `*.39S365  1 p 2 7 ]
+[s S381 . 6 `i 1 x 2 0 `i 1 y 2 2 `i 1 z 2 4 ]
+[s S385 . 14 `S381 1 gyro 6 0 `ui 1 temp 2 6 `S381 1 accel 6 8 ]
+[v mpu9250_i2c_read_axes6_raw@data data `*.39S385  1 p 2 9 ]
+"375
+} 0
+"17
+[v _mpu9250_i2c_init mpu9250_i2c_init `(uc  1 e 1 0 ]
+{
+"81
+[v mpu9250_i2c_init@mag_coef mag_coef `[3]uc  1 a 3 14 ]
 "39
-[v bmp280_i2c_set_conf@t_sb t_sb `uc  1 a 1 10 ]
-"47
+[v mpu9250_i2c_init@rst rst `uc  1 a 1 13 ]
+"37
+[v mpu9250_i2c_init@rst_complete rst_complete `uc  1 a 1 17 ]
+"22
+[v mpu9250_i2c_init@chip_id chip_id `uc  1 a 1 12 ]
+[s S357 . 1 `uc 1 a_fs 1 0 :2:0 
+`uc 1 g_fs 1 0 :2:2 
+`uc 1 m_fs 1 0 :1:4 
+]
+"17
+[s S361 . 6 `ui 1 x 2 0 `ui 1 y 2 2 `ui 1 z 2 4 ]
+[s S365 . 8 `uc 1 addr 1 0 `S357 1 scale 1 1 `S361 1 mag_factor 6 2 ]
+[v mpu9250_i2c_init@mpu mpu `*.39S365  1 p 2 7 ]
+[v mpu9250_i2c_init@axes9 axes9 `uc  1 p 1 9 ]
+"113
+} 0
+"162
+[v _mpu9250_i2c_config_fs mpu9250_i2c_config_fs `(uc  1 e 1 0 ]
+{
+"163
+[v mpu9250_i2c_config_fs@temp temp `uc  1 a 1 9 ]
+[s S357 . 1 `uc 1 a_fs 1 0 :2:0 
+`uc 1 g_fs 1 0 :2:2 
+`uc 1 m_fs 1 0 :1:4 
+]
+"162
+[s S361 . 6 `ui 1 x 2 0 `ui 1 y 2 2 `ui 1 z 2 4 ]
+[s S365 . 8 `uc 1 addr 1 0 `S357 1 scale 1 1 `S361 1 mag_factor 6 2 ]
+[v mpu9250_i2c_config_fs@mpu mpu `*.39S365  1 p 2 5 ]
+[v mpu9250_i2c_config_fs@axes9 axes9 `uc  1 p 1 7 ]
+"202
+} 0
+"31 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
+[v _bmp280_i2c_set_ctrl bmp280_i2c_set_ctrl `(uc  1 e 1 0 ]
+{
+"32
+[v bmp280_i2c_set_ctrl@ctrl ctrl `uc  1 a 1 14 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"31
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v bmp280_i2c_set_ctrl@bmp bmp `*.39S333  1 p 2 5 ]
+[v bmp280_i2c_set_ctrl@osrs_t osrs_t `uc  1 p 1 7 ]
+[v bmp280_i2c_set_ctrl@osrs_p osrs_p `uc  1 p 1 8 ]
+[v bmp280_i2c_set_ctrl@mode mode `uc  1 p 1 9 ]
+"43
+} 0
+"45
+[v _bmp280_i2c_set_conf bmp280_i2c_set_conf `(uc  1 e 1 0 ]
+{
+"46
+[v bmp280_i2c_set_conf@cfg cfg `uc  1 a 1 13 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"45
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v bmp280_i2c_set_conf@bmp bmp `*.39S333  1 p 2 5 ]
+[v bmp280_i2c_set_conf@t_sb t_sb `uc  1 p 1 7 ]
+[v bmp280_i2c_set_conf@filter filter `uc  1 p 1 8 ]
+"64
 } 0
 "203 D:\Development\MPLABXProjects\Avionics.X\mcc_generated_files/i2c1.c
 [v _i2c1_write1ByteRegister i2c1_write1ByteRegister `(v  1 e 1 0 ]
@@ -375,55 +454,53 @@ I2C1_FAIL_TIMEOUT 1
 [v i2c1_write1ByteRegister@address address `uc  1 a 1 4 ]
 "214
 } 0
-"247
-[v _i2c1_read1ByteRegister i2c1_read1ByteRegister `(uc  1 e 1 0 ]
+"226 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
+[v _bmp280_i2c_read_temp_i32 bmp280_i2c_read_temp_i32 `(uc  1 e 1 0 ]
 {
-[v i2c1_read1ByteRegister@address address `uc  1 a 1 wreg ]
-"249
-[v i2c1_read1ByteRegister@result result `uc  1 a 1 3 ]
-"247
-[v i2c1_read1ByteRegister@address address `uc  1 a 1 wreg ]
-[v i2c1_read1ByteRegister@reg reg `uc  1 p 1 2 ]
-"251
-[v i2c1_read1ByteRegister@address address `uc  1 a 1 4 ]
-"267
-} 0
-"154 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
-[v _bmp280_i2c_read_temp_i32 bmp280_i2c_read_temp_i32 `(l  1 e 4 0 ]
-{
-"169
-[v bmp280_i2c_read_temp_i32@temp2 temp2 `l  1 a 4 53 ]
-"157
-[v bmp280_i2c_read_temp_i32@adc_T adc_T `l  1 a 4 49 ]
-"171
-[v bmp280_i2c_read_temp_i32@T T `l  1 a 4 38 ]
-"170
-[v bmp280_i2c_read_temp_i32@temp3 temp3 `l  1 a 4 34 ]
-"168
-[v bmp280_i2c_read_temp_i32@temp1 temp1 `l  1 a 4 30 ]
-"158
-[v bmp280_i2c_read_temp_i32@t_read t_read `[3]uc  1 a 3 46 ]
-"180
-} 0
-"199
-[v _bmp280_i2c_read_press_i32 bmp280_i2c_read_press_i32 `(l  1 e 4 0 ]
-{
-"202
-[v bmp280_i2c_read_press_i32@var1 var1 `l  1 a 4 60 ]
-"204
-[v bmp280_i2c_read_press_i32@P P `ul  1 a 4 56 ]
-"203
-[v bmp280_i2c_read_press_i32@var2 var2 `l  1 a 4 52 ]
-"200
-[v bmp280_i2c_read_press_i32@adc_P adc_P `l  1 a 4 44 ]
+"244
+[v bmp280_i2c_read_temp_i32@temp2 temp2 `l  1 a 4 51 ]
+"229
+[v bmp280_i2c_read_temp_i32@adc_T adc_T `l  1 a 4 47 ]
+"245
+[v bmp280_i2c_read_temp_i32@temp3 temp3 `l  1 a 4 36 ]
+"243
+[v bmp280_i2c_read_temp_i32@temp1 temp1 `l  1 a 4 32 ]
 "230
+[v bmp280_i2c_read_temp_i32@t_read t_read `[3]uc  1 a 3 44 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"226
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v bmp280_i2c_read_temp_i32@bmp bmp `*.39S333  1 p 2 12 ]
+[v bmp280_i2c_read_temp_i32@T T `*.39l  1 p 2 14 ]
+"254
 } 0
-"182
-[v _bmp280_i2c_read_press_raw bmp280_i2c_read_press_raw `(l  1 e 4 0 ]
+"277
+[v _bmp280_i2c_read_press_i32 bmp280_i2c_read_press_i32 `(uc  1 e 1 0 ]
 {
-"185
-[v bmp280_i2c_read_press_raw@p_read p_read `[3]uc  1 a 3 24 ]
-"194
+"282
+[v bmp280_i2c_read_press_i32@var1 var1 `l  1 a 4 70 ]
+"283
+[v bmp280_i2c_read_press_i32@var2 var2 `l  1 a 4 66 ]
+"278
+[v bmp280_i2c_read_press_i32@adc_P adc_P `l  1 a 4 58 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"277
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v bmp280_i2c_read_press_i32@bmp bmp `*.39S333  1 p 2 31 ]
+[v bmp280_i2c_read_press_i32@P P `*.39ul  1 p 2 33 ]
+"308
+} 0
+"256
+[v _bmp280_i2c_read_press_raw bmp280_i2c_read_press_raw `(uc  1 e 1 0 ]
+{
+"259
+[v bmp280_i2c_read_press_raw@p_read p_read `[3]uc  1 a 3 28 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"256
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v bmp280_i2c_read_press_raw@bmp bmp `*.39S333  1 p 2 7 ]
+[v bmp280_i2c_read_press_raw@P P `*.39l  1 p 2 9 ]
+"272
 } 0
 "15 D:\Software\Microchip\xc8\v1.45\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -447,10 +524,16 @@ I2C1_FAIL_TIMEOUT 1
 [v ___lldiv@divisor divisor `ul  1 p 4 4 ]
 "31
 } 0
-"16 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
-[v _bmp280_i2c_init bmp280_i2c_init `(b  1 e 0 0 ]
+"13 D:\Development\MPLABXProjects\Avionics.X\bmp280.c
+[v _bmp280_i2c_init bmp280_i2c_init `(uc  1 e 1 0 ]
 {
-"23
+"14
+[v bmp280_i2c_init@chip_id chip_id `uc  1 a 1 9 ]
+[s S320 . 24 `ui 1 dig_T1 2 0 `i 1 dig_T2 2 2 `i 1 dig_T3 2 4 `ui 1 dig_P1 2 6 `i 1 dig_P2 2 8 `i 1 dig_P3 2 10 `i 1 dig_P4 2 12 `i 1 dig_P5 2 14 `i 1 dig_P6 2 16 `i 1 dig_P7 2 18 `i 1 dig_P8 2 20 `i 1 dig_P9 2 22 ]
+"13
+[s S333 . 29 `uc 1 addr 1 0 `S320 1 calib 24 1 `l 1 t_fine 4 25 ]
+[v bmp280_i2c_init@bmp bmp `*.39S333  1 p 2 7 ]
+"29
 } 0
 "294 D:\Development\MPLABXProjects\Avionics.X\mcc_generated_files/i2c1.c
 [v _i2c1_readDataBlock i2c1_readDataBlock `(v  1 e 1 0 ]
@@ -463,6 +546,19 @@ I2C1_FAIL_TIMEOUT 1
 "296
 [v i2c1_readDataBlock@address address `uc  1 a 1 6 ]
 "314
+} 0
+"247
+[v _i2c1_read1ByteRegister i2c1_read1ByteRegister `(uc  1 e 1 0 ]
+{
+[v i2c1_read1ByteRegister@address address `uc  1 a 1 wreg ]
+"249
+[v i2c1_read1ByteRegister@result result `uc  1 a 1 3 ]
+"247
+[v i2c1_read1ByteRegister@address address `uc  1 a 1 wreg ]
+[v i2c1_read1ByteRegister@reg reg `uc  1 p 1 2 ]
+"251
+[v i2c1_read1ByteRegister@address address `uc  1 a 1 4 ]
+"267
 } 0
 "162
 [v _wait4Stop wait4Stop `T(v  1 s 1 wait4Stop ]
@@ -517,7 +613,7 @@ I2C1_FAIL_TIMEOUT 1
 "160
 } 0
 "75
-[v _i2c1_getLastError i2c1_getLastError `(E26611  1 e 1 0 ]
+[v _i2c1_getLastError i2c1_getLastError `(E26612  1 e 1 0 ]
 {
 "78
 } 0

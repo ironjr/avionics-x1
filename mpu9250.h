@@ -11,7 +11,8 @@
 #ifdef __cplusplus
 //extern "C" {
 #endif
-    
+
+#include "mcc_generated_files/device_config.h"
 #include "mcc_generated_files/i2c1.h"
 
 #define MPU9250_I2C_ADDR 0b1101000 /* 0b110100X, where X is SDO */
@@ -123,16 +124,21 @@
 #define MPU9250_CHIPID 0x73
 
 /* Gyro full-scale option */
-#define MPU9250_GFS_250  0x0 // +250dps
-#define MPU9250_GFS_500  0x1 // +500dps
-#define MPU9250_GFS_1000 0x2 // +1000dps
-#define MPU9250_GFS_2000 0x3 // +2000dps
+#define MPU9250_GFS_250  0x0 // +-250dps
+#define MPU9250_GFS_500  0x1 // +-500dps
+#define MPU9250_GFS_1000 0x2 // +-1000dps
+#define MPU9250_GFS_2000 0x3 // +-2000dps
 
 /* Accel full-scale option */
 #define MPU9250_AFS_2G  0x0 // 2g
 #define MPU9250_AFS_4G  0x1 // 4g
 #define MPU9250_AFS_8G  0x2 // 8g
 #define MPU9250_AFS_16G 0x3 // 16g
+
+#define MPU9250_MAX_14S_UINT 8192
+#define MPU9250_MAX_14S_FLOAT 8192.0f
+#define MPU9250_MAX_16S_UINT 32768
+#define MPU9250_MAX_16S_FLOAT 32768.0f
 
 /* AK8963 register addresses */
 #define AK8963_WIA 0x00
@@ -166,13 +172,11 @@
 #define AK8963_MODE_FUSE 0x0F // Fuse ROM access
 
 /* Magneto scale option */
-#define AK8963_BIT_14 0x0 ///< 14bit output
-#define AK8963_BIT_16 0x1 ///< 16bit output
+#define AK8963_BIT_14 0x0 // 14bit output
+#define AK8963_BIT_16 0x1 // 16bit output
 
-typedef struct {
-    bit addr;
-    vector3_16u mag_factor;
-} mpu9250;
+#define AK8963_MAX_UINT 4912
+#define AK8963_MAX_FLOAT 4912.0f
 
 typedef struct {
     unsigned a_fchoice_b : 1;
@@ -184,6 +188,7 @@ typedef struct {
 typedef struct {
     unsigned a_fs : 2;
     unsigned g_fs : 2;
+    unsigned m_fs : 1;
 } full_scale;
 
 typedef struct {
@@ -194,12 +199,6 @@ typedef struct {
     uint8_t magneto_cntl1;
     uint8_t magneto_cntl2;
 } mpu9250_cfg;
-
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-    uint8_t z;
-} vector3_8u;
 
 typedef struct {
     int16_t x;
@@ -214,39 +213,36 @@ typedef struct {
 } vector3_16u;
 
 typedef struct {
-    int32_t x;
-    int32_t y;
-    int32_t z;
-} vector3_32s;
+    vector3_16s gyro;
+    uint16_t temp;
+    vector3_16s accel;
+} axes6_raw;
 
 typedef struct {
-    vector3 gyro;
-    vector3 accel;
-} axes6;
+    vector3_16s gyro;
+    uint16_t temp;
+    vector3_16s accel;
+    vector3_16s magneto;
+} axes9_raw;
 
 typedef struct {
-    vector3 gyro;
-    vector3 accel;
-    vector3 magneto;
-} axes9;
+    uint8_t addr;
+    full_scale scale;
+    vector3_16u mag_factor;
+} mpu9250;
 
 /* Function declaration */
-bit mpu9250_i2c_init(mpu9250 *);
-void bmp280_i2c_set_ctrl(uint8_t, uint8_t, uint8_t);
-void bmp280_i2c_set_conf(uint8_t, uint8_t);
-void bmp280_i2c_set_osrs_t(uint8_t);
-void bmp280_i2c_set_osrs_p(uint8_t);
-void bmp280_i2c_set_mode(uint8_t);
-void bmp280_i2c_set_t_sb(uint8_t);
-void bmp280_i2c_set_filter(uint8_t);
-uint8_t bmp280_i2c_get_osrs_t(void);
-uint8_t bmp280_i2c_get_osrs_p(void);
-uint8_t bmp280_i2c_get_mode(void);
-uint8_t bmp280_i2c_get_t_sb(void);
-uint8_t bmp280_i2c_get_filter(void);
-int32_t bmp280_i2c_read_temp_i32(void);
-int32_t bmp280_i2c_read_press_raw(void);
-int32_t bmp280_i2c_read_press_i32(void);
+uint8_t mpu9250_i2c_init(mpu9250 *, uint8_t);
+uint8_t mpu9250_i2c_config_dlpf(mpu9250 *, dlpf_cfg *);
+uint8_t mpu9250_i2c_config_fs(mpu9250 *, uint8_t);
+uint8_t mpu9250_i2c_get_fs(mpu9250 *, full_scale *, uint8_t);
+uint8_t mpu9250_i2c_update_gyro_offset(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_dump_config(mpu9250 *, mpu9250_cfg *);
+uint8_t mpu9250_i2c_read_gyro_raw(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_read_accel_raw(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *, axes6_raw *);
+uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *, axes9_raw *);
 
 #ifdef __cplusplus
 //}

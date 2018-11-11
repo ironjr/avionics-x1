@@ -1,44 +1,45 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[p mainexit ]
-"69 mcc_generated_files/mcc.h
-[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"66 bmp280.h
-[s S3195 `ui 1 `i 1 `i 1 `ui 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 ]
-[n S3195 . dig_T1 dig_T2 dig_T3 dig_P1 dig_P2 dig_P3 dig_P4 dig_P5 dig_P6 dig_P7 dig_P8 dig_P9 ]
-"82
-[s S3196 `uc 1 `S3195 1 `l 1 ]
-[n S3196 . addr calib t_fine ]
-"89
-[v _bmp280_i2c_init `(uc ~T0 @X0 0 ef1`*S3196 ]
-"90
-[v _bmp280_i2c_set_ctrl `(uc ~T0 @X0 0 ef4`*S3196`uc`uc`uc ]
-"91
-[v _bmp280_i2c_set_conf `(uc ~T0 @X0 0 ef3`*S3196`uc`uc ]
 "188 mpu9250.h
-[s S3198 :2 `uc 1 :2 `uc 1 :1 `uc 1 ]
-[n S3198 . a_fs g_fs m_fs ]
+[s S3196 :2 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S3196 . a_fs g_fs m_fs ]
 "209
-[s S3201 `ui 1 `ui 1 `ui 1 ]
-[n S3201 . x y z ]
+[s S3199 `ui 1 `ui 1 `ui 1 ]
+[n S3199 . x y z ]
 "228
-[s S3204 `uc 1 `S3198 1 `S3201 1 ]
-[n S3204 . addr scale mag_factor ]
-"235
-[v _mpu9250_i2c_init `(uc ~T0 @X0 0 ef2`*S3204`uc ]
-"237
-[v _mpu9250_i2c_config_fs `(uc ~T0 @X0 0 ef2`*S3204`uc ]
+[s S3202 `uc 1 `S3196 1 `S3199 1 ]
+[n S3202 . addr scale mag_factor ]
+"193 mcc_generated_files/i2c1.h
+[v _i2c1_read1ByteRegister `(uc ~T0 @X0 0 ef2`uc`uc ]
+"25 mpu9250.c
+[c E26611 0 1 .. ]
+[n E26611 . I2C1_GOOD I2C1_FAIL_TIMEOUT  ]
+"98 mcc_generated_files/i2c1.h
+[v _i2c1_getLastError `(E26611 ~T0 @X0 0 ef ]
+"122
+[v _i2c1_write1ByteRegister `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+[v F26576 `(v ~T0 @X0 1 tf1`ul ]
+"164 D:\Software\Microchip\xc8\v1.45\include\pic18.h
+[v __delay `JF26576 ~T0 @X0 0 e ]
+[p i __delay ]
+"238 mcc_generated_files/i2c1.h
+[v _i2c1_readDataBlock `(v ~T0 @X0 0 ef4`uc`uc`*uc`uc ]
+"181 mpu9250.h
+[s S3195 :1 `uc 1 :3 `uc 1 :2 `uc 1 :3 `uc 1 ]
+[n S3195 . a_fchoice_b a_dlpf_cfg g_fchoice_b g_dlpf_cfg ]
 "203
-[s S3200 `i 1 `i 1 `i 1 ]
-[n S3200 . x y z ]
+[s S3198 `i 1 `i 1 `i 1 ]
+[n S3198 . x y z ]
+"146 mcc_generated_files/i2c1.h
+[v _i2c1_write2ByteRegister `(v ~T0 @X0 0 ef3`uc`uc`ui ]
+"194 mpu9250.h
+[s S3197 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S3197 . cfg gyro_cfg accel_cfg accel_cfg2 magneto_cntl1 magneto_cntl2 ]
 "215
-[s S3202 `S3200 1 `ui 1 `S3200 1 ]
-[n S3202 . gyro temp accel ]
-"102 bmp280.h
-[v _bmp280_i2c_read_temp_i32 `(uc ~T0 @X0 0 ef2`*S3196`*l ]
-"104
-[v _bmp280_i2c_read_press_i32 `(uc ~T0 @X0 0 ef2`*S3196`*ul ]
-"244 mpu9250.h
-[v _mpu9250_i2c_read_axes6_raw `(uc ~T0 @X0 0 ef2`*S3204`*S3202 ]
+[s S3200 `S3198 1 `ui 1 `S3198 1 ]
+[n S3200 . gyro temp accel ]
+"221
+[s S3201 `S3198 1 `ui 1 `S3198 1 `S3198 1 ]
+[n S3201 . gyro temp accel magneto ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -25374,8 +25375,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;pin_manager.h: 96: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 108: void PIN_MANAGER_IOC(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -25404,7 +25403,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;i2c1.h: 69: typedef enum { I2C1_GOOD, I2C1_FAIL_TIMEOUT } i2c1_error;
 [; ;i2c1.h: 96: void I2C1_Initialize(void);
 [; ;i2c1.h: 98: i2c1_error i2c1_getLastError(void);
@@ -25415,44 +25413,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 214: uint16_t i2c1_read2ByteRegister(uint8_t address, uint8_t reg);
 [; ;i2c1.h: 238: void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
 [; ;i2c1.h: 263: void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
-[; ;mcc.h: 69: void SYSTEM_Initialize(void);
-[; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 95: void PMD_Initialize(void);
-[; ;bmp280.h: 66: typedef struct {
-[; ;bmp280.h: 67: uint16_t dig_T1;
-[; ;bmp280.h: 68: int16_t dig_T2;
-[; ;bmp280.h: 69: int16_t dig_T3;
-[; ;bmp280.h: 71: uint16_t dig_P1;
-[; ;bmp280.h: 72: int16_t dig_P2;
-[; ;bmp280.h: 73: int16_t dig_P3;
-[; ;bmp280.h: 74: int16_t dig_P4;
-[; ;bmp280.h: 75: int16_t dig_P5;
-[; ;bmp280.h: 76: int16_t dig_P6;
-[; ;bmp280.h: 77: int16_t dig_P7;
-[; ;bmp280.h: 78: int16_t dig_P8;
-[; ;bmp280.h: 79: int16_t dig_P9;
-[; ;bmp280.h: 80: } bmp280_calib_data;
-[; ;bmp280.h: 82: typedef struct {
-[; ;bmp280.h: 83: uint8_t addr;
-[; ;bmp280.h: 84: bmp280_calib_data calib;
-[; ;bmp280.h: 85: int32_t t_fine;
-[; ;bmp280.h: 86: } bmp280;
-[; ;bmp280.h: 89: uint8_t bmp280_i2c_init(bmp280 *);
-[; ;bmp280.h: 90: uint8_t bmp280_i2c_set_ctrl(bmp280 *, uint8_t, uint8_t, uint8_t);
-[; ;bmp280.h: 91: uint8_t bmp280_i2c_set_conf(bmp280 *, uint8_t, uint8_t);
-[; ;bmp280.h: 92: uint8_t bmp280_i2c_set_osrs_t(bmp280 *, uint8_t);
-[; ;bmp280.h: 93: uint8_t bmp280_i2c_set_osrs_p(bmp280 *, uint8_t);
-[; ;bmp280.h: 94: uint8_t bmp280_i2c_set_mode(bmp280 *, uint8_t);
-[; ;bmp280.h: 95: uint8_t bmp280_i2c_set_t_sb(bmp280 *, uint8_t);
-[; ;bmp280.h: 96: uint8_t bmp280_i2c_set_filter(bmp280 *, uint8_t);
-[; ;bmp280.h: 97: uint8_t bmp280_i2c_get_osrs_t(bmp280 *, uint8_t *);
-[; ;bmp280.h: 98: uint8_t bmp280_i2c_get_osrs_p(bmp280 *, uint8_t *);
-[; ;bmp280.h: 99: uint8_t bmp280_i2c_get_mode(bmp280 *, uint8_t *);
-[; ;bmp280.h: 100: uint8_t bmp280_i2c_get_t_sb(bmp280 *, uint8_t *);
-[; ;bmp280.h: 101: uint8_t bmp280_i2c_get_filter(bmp280 *, uint8_t *);
-[; ;bmp280.h: 102: uint8_t bmp280_i2c_read_temp_i32(bmp280 *, int32_t *);
-[; ;bmp280.h: 103: uint8_t bmp280_i2c_read_press_raw(bmp280 *, int32_t *);
-[; ;bmp280.h: 104: uint8_t bmp280_i2c_read_press_i32(bmp280 *, uint32_t *);
 [; ;mpu9250.h: 181: typedef struct {
 [; ;mpu9250.h: 182: unsigned a_fchoice_b : 1;
 [; ;mpu9250.h: 183: unsigned a_dlpf_cfg : 3;
@@ -25509,85 +25469,788 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpu9250.h: 243: uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *, vector3_16s *);
 [; ;mpu9250.h: 244: uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *, axes6_raw *);
 [; ;mpu9250.h: 245: uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *, axes9_raw *);
-[v $root$_main `(v ~T0 @X0 0 e ]
-"14 main.c
-[v _main `(v ~T0 @X0 1 ef ]
+"17 mpu9250.c
+[v _mpu9250_i2c_init `(uc ~T0 @X0 1 ef2`*S3202`uc ]
 {
-[; ;main.c: 14: void main(void) {
-[e :U _main ]
+[; ;mpu9250.c: 17: uint8_t mpu9250_i2c_init(mpu9250 *mpu, uint8_t axes9) {
+[e :U _mpu9250_i2c_init ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _axes9 `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 15: SYSTEM_Initialize();
-"15
-[e ( _SYSTEM_Initialize ..  ]
-"17
-[v _bmp `S3196 ~T0 @X0 1 a ]
-[; ;main.c: 17: bmp280 bmp;
-[; ;main.c: 18: bmp.addr = 0;
-"18
-[e = . _bmp 0 -> -> 0 `i `uc ]
-[; ;main.c: 19: bmp280_i2c_init(&bmp);
-"19
-[e ( _bmp280_i2c_init (1 &U _bmp ]
-[; ;main.c: 20: bmp280_i2c_set_ctrl(&bmp, 0x2, 0x3, 0x3);
-"20
-[e ( _bmp280_i2c_set_ctrl (4 , , , &U _bmp -> -> 2 `i `uc -> -> 3 `i `uc -> -> 3 `i `uc ]
-[; ;main.c: 21: bmp280_i2c_set_conf(&bmp, 0x0, 0x2);
-"21
-[e ( _bmp280_i2c_set_conf (3 , , &U _bmp -> -> 0 `i `uc -> -> 2 `i `uc ]
-"23
-[v _mpu `S3204 ~T0 @X0 1 a ]
-[; ;main.c: 23: mpu9250 mpu;
-[; ;main.c: 24: mpu.addr = 0;
+"22
+[v _chip_id `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 22: uint8_t chip_id = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 23: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 24: 0x75);
 "24
-[e = . _mpu 0 -> -> 0 `i `uc ]
-[; ;main.c: 25: mpu.scale.a_fs = 0x3;
+[e = _chip_id ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 117 `i `uc ]
+[; ;mpu9250.c: 25: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT || chip_id != 0x73)
 "25
-[e = . . _mpu 1 0 -> -> 3 `i `uc ]
-[; ;main.c: 26: mpu.scale.g_fs = 0x1;
+[e $ ! || == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i != -> _chip_id `i -> 115 `i 3204  ]
+[; ;mpu9250.c: 26: return 1;
 "26
-[e = . . _mpu 1 1 -> -> 1 `i `uc ]
-[; ;main.c: 27: mpu.scale.m_fs = 0x1;
-"27
-[e = . . _mpu 1 2 -> -> 1 `i `uc ]
-[; ;main.c: 28: mpu9250_i2c_init(&mpu, 0);
-"28
-[e ( _mpu9250_i2c_init (2 , &U _mpu -> -> 0 `i `uc ]
-[; ;main.c: 29: mpu9250_i2c_config_fs(&mpu, 0);
-"29
-[e ( _mpu9250_i2c_config_fs (2 , &U _mpu -> -> 0 `i `uc ]
-"31
-[v _ax6raw `S3202 ~T0 @X0 1 a ]
+[e ) -> -> 1 `i `uc ]
+[e $UE 3203  ]
+[e :U 3204 ]
+[; ;mpu9250.c: 29: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 30: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 31: 0x6B,
+[; ;mpu9250.c: 32: 0x80);
 "32
-[v _temp `l ~T0 @X0 1 a ]
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 107 `i `uc -> -> 128 `i `uc ]
+[; ;mpu9250.c: 33: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "33
-[v _press `l ~T0 @X0 1 a ]
-[; ;main.c: 31: axes6_raw ax6raw;
-[; ;main.c: 32: int32_t temp;
-[; ;main.c: 33: int32_t press;
-[; ;main.c: 34: while (1) {
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3205  ]
+[; ;mpu9250.c: 34: return 2;
 "34
-[e :U 3207 ]
-{
-[; ;main.c: 35: bmp280_i2c_read_temp_i32(&bmp, &temp);
+[e ) -> -> 2 `i `uc ]
+[e $UE 3203  ]
+[e :U 3205 ]
+[; ;mpu9250.c: 35: _delay((unsigned long)((50)*(1000000/4000.0)));
 "35
-[e ( _bmp280_i2c_read_temp_i32 (2 , &U _bmp &U _temp ]
-[; ;main.c: 36: bmp280_i2c_read_press_i32(&bmp, &press);
-"36
-[e ( _bmp280_i2c_read_press_i32 (2 , &U _bmp -> &U _press `*ul ]
-[; ;main.c: 37: mpu9250_i2c_read_axes6_raw(&mpu, &ax6raw);
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
 "37
-[e ( _mpu9250_i2c_read_axes6_raw (2 , &U _mpu &U _ax6raw ]
+[v _rst_complete `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 37: uint8_t rst_complete = 0;
+[e = _rst_complete -> -> 0 `i `uc ]
+[; ;mpu9250.c: 38: do {
 "38
-}
-[e :U 3206 ]
-"34
-[e $U 3207  ]
 [e :U 3208 ]
-[; ;main.c: 38: }
-[; ;main.c: 40: return;
-"40
-[e $UE 3205  ]
-[; ;main.c: 41: }
+{
+"39
+[v _rst `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 39: uint8_t rst = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 40: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 41: 0x6B);
 "41
-[e :UE 3205 ]
+[e = _rst ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 107 `i `uc ]
+[; ;mpu9250.c: 42: rst_complete = rst >> 7;
+"42
+[e = _rst_complete -> >> -> _rst `i -> 7 `i `uc ]
+[; ;mpu9250.c: 43: _delay((unsigned long)((50)*(1000000/4000.0)));
+"43
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+"44
+}
+[; ;mpu9250.c: 44: } while (rst_complete);
+[e $ != -> _rst_complete `i -> -> -> 0 `i `uc `i 3208  ]
+[e :U 3207 ]
+[; ;mpu9250.c: 45: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"45
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3209  ]
+[; ;mpu9250.c: 46: return 3;
+"46
+[e ) -> -> 3 `i `uc ]
+[e $UE 3203  ]
+[e :U 3209 ]
+[; ;mpu9250.c: 49: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 50: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 51: 0x6B,
+[; ;mpu9250.c: 52: 0x01);
+"52
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 107 `i `uc -> -> 1 `i `uc ]
+[; ;mpu9250.c: 53: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"53
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3210  ]
+[; ;mpu9250.c: 54: return 4;
+"54
+[e ) -> -> 4 `i `uc ]
+[e $UE 3203  ]
+[e :U 3210 ]
+[; ;mpu9250.c: 55: _delay((unsigned long)((200)*(1000000/4000.0)));
+"55
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+[; ;mpu9250.c: 61: if (axes9) {
+"61
+[e $ ! != -> _axes9 `i -> -> -> 0 `i `uc `i 3211  ]
+{
+[; ;mpu9250.c: 63: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 64: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 65: 0x0A,
+[; ;mpu9250.c: 66: 0x00);
+"66
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc -> -> 0 `i `uc ]
+[; ;mpu9250.c: 67: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"67
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3212  ]
+[; ;mpu9250.c: 68: return 5;
+"68
+[e ) -> -> 5 `i `uc ]
+[e $UE 3203  ]
+[e :U 3212 ]
+[; ;mpu9250.c: 69: _delay((unsigned long)((50)*(1000000/4000.0)));
+"69
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+[; ;mpu9250.c: 72: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 73: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 74: 0x0A,
+[; ;mpu9250.c: 75: 0x0F);
+"75
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc -> -> 15 `i `uc ]
+[; ;mpu9250.c: 76: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"76
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3213  ]
+[; ;mpu9250.c: 77: return 6;
+"77
+[e ) -> -> 6 `i `uc ]
+[e $UE 3203  ]
+[e :U 3213 ]
+[; ;mpu9250.c: 78: _delay((unsigned long)((50)*(1000000/4000.0)));
+"78
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+"81
+[v _mag_coef `uc ~T0 @X0 -> 3 `i a ]
+[; ;mpu9250.c: 81: uint8_t mag_coef[3];
+[; ;mpu9250.c: 82: i2c1_readDataBlock(
+[; ;mpu9250.c: 83: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 84: 0x10,
+[; ;mpu9250.c: 85: (char *)mag_coef,
+[; ;mpu9250.c: 86: 3);
+"86
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 16 `i `uc &U _mag_coef -> -> 3 `i `uc ]
+[; ;mpu9250.c: 87: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"87
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3214  ]
+[; ;mpu9250.c: 88: return 7;
+"88
+[e ) -> -> 7 `i `uc ]
+[e $UE 3203  ]
+[e :U 3214 ]
+[; ;mpu9250.c: 89: mpu->mag_factor.x = mag_coef[0] + 128;
+"89
+[e = . . *U _mpu 2 0 -> + -> *U + &U _mag_coef * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_coef `ui `ux `i -> 128 `i `ui ]
+[; ;mpu9250.c: 90: mpu->mag_factor.y = mag_coef[1] + 128;
+"90
+[e = . . *U _mpu 2 1 -> + -> *U + &U _mag_coef * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_coef `ui `ux `i -> 128 `i `ui ]
+[; ;mpu9250.c: 91: mpu->mag_factor.z = mag_coef[2] + 128;
+"91
+[e = . . *U _mpu 2 2 -> + -> *U + &U _mag_coef * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_coef `ui `ux `i -> 128 `i `ui ]
+[; ;mpu9250.c: 94: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 95: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 96: 0x0A,
+[; ;mpu9250.c: 97: 0x00);
+"97
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc -> -> 0 `i `uc ]
+[; ;mpu9250.c: 98: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"98
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3215  ]
+[; ;mpu9250.c: 99: return 8;
+"99
+[e ) -> -> 8 `i `uc ]
+[e $UE 3203  ]
+[e :U 3215 ]
+[; ;mpu9250.c: 100: _delay((unsigned long)((50)*(1000000/4000.0)));
+"100
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+[; ;mpu9250.c: 103: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 104: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 105: 0x0A,
+[; ;mpu9250.c: 106: 0x06 | mpu->scale.m_fs << 4);
+"106
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc -> | -> 6 `i << -> . . *U _mpu 1 2 `i -> 4 `i `uc ]
+[; ;mpu9250.c: 107: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"107
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3216  ]
+[; ;mpu9250.c: 108: return 9;
+"108
+[e ) -> -> 9 `i `uc ]
+[e $UE 3203  ]
+[e :U 3216 ]
+[; ;mpu9250.c: 109: _delay((unsigned long)((50)*(1000000/4000.0)));
+"109
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+"110
+}
+[e :U 3211 ]
+[; ;mpu9250.c: 110: }
+[; ;mpu9250.c: 112: return 0;
+"112
+[e ) -> -> 0 `i `uc ]
+[e $UE 3203  ]
+[; ;mpu9250.c: 113: }
+"113
+[e :UE 3203 ]
+}
+"119
+[v _mpu9250_i2c_config_dlpf `(uc ~T0 @X0 1 ef2`*S3202`*S3195 ]
+{
+[; ;mpu9250.c: 119: uint8_t mpu9250_i2c_config_dlpf(mpu9250 *mpu, dlpf_cfg *cfg) {
+[e :U _mpu9250_i2c_config_dlpf ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _cfg `*S3195 ~T0 @X0 1 r2 ]
+[f ]
+"120
+[v _temp `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 120: uint8_t temp;
+[; ;mpu9250.c: 121: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 122: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 123: 0x1D);
+"123
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 29 `i `uc ]
+[; ;mpu9250.c: 124: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"124
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3218  ]
+[; ;mpu9250.c: 125: return 1;
+"125
+[e ) -> -> 1 `i `uc ]
+[e $UE 3217  ]
+[e :U 3218 ]
+[; ;mpu9250.c: 126: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 127: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 128: 0x1D,
+[; ;mpu9250.c: 129: temp & 0xF0 | cfg->a_fchoice_b << 3 | cfg->a_dlpf_cfg);
+"129
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 29 `i `uc -> | | & -> _temp `i -> 240 `i << -> . *U _cfg 0 `i -> 3 `i -> . *U _cfg 1 `i `uc ]
+[; ;mpu9250.c: 130: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"130
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3219  ]
+[; ;mpu9250.c: 131: return 2;
+"131
+[e ) -> -> 2 `i `uc ]
+[e $UE 3217  ]
+[e :U 3219 ]
+[; ;mpu9250.c: 132: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 133: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 134: 0x1B);
+"134
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 27 `i `uc ]
+[; ;mpu9250.c: 135: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"135
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3220  ]
+[; ;mpu9250.c: 136: return 3;
+"136
+[e ) -> -> 3 `i `uc ]
+[e $UE 3217  ]
+[e :U 3220 ]
+[; ;mpu9250.c: 137: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 138: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 139: 0x1B,
+[; ;mpu9250.c: 140: temp & 0xFC | cfg->g_fchoice_b);
+"140
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 27 `i `uc -> | & -> _temp `i -> 252 `i -> . *U _cfg 2 `i `uc ]
+[; ;mpu9250.c: 141: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"141
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3221  ]
+[; ;mpu9250.c: 142: return 4;
+"142
+[e ) -> -> 4 `i `uc ]
+[e $UE 3217  ]
+[e :U 3221 ]
+[; ;mpu9250.c: 143: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 144: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 145: 0x1A);
+"145
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 26 `i `uc ]
+[; ;mpu9250.c: 146: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"146
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3222  ]
+[; ;mpu9250.c: 147: return 5;
+"147
+[e ) -> -> 5 `i `uc ]
+[e $UE 3217  ]
+[e :U 3222 ]
+[; ;mpu9250.c: 148: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 149: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 150: 0x1A,
+[; ;mpu9250.c: 151: temp & 0xF8 | cfg->g_dlpf_cfg);
+"151
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 26 `i `uc -> | & -> _temp `i -> 248 `i -> . *U _cfg 3 `i `uc ]
+[; ;mpu9250.c: 152: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"152
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3223  ]
+[; ;mpu9250.c: 153: return 6;
+"153
+[e ) -> -> 6 `i `uc ]
+[e $UE 3217  ]
+[e :U 3223 ]
+[; ;mpu9250.c: 155: return 0;
+"155
+[e ) -> -> 0 `i `uc ]
+[e $UE 3217  ]
+[; ;mpu9250.c: 156: }
+"156
+[e :UE 3217 ]
+}
+"162
+[v _mpu9250_i2c_config_fs `(uc ~T0 @X0 1 ef2`*S3202`uc ]
+{
+[; ;mpu9250.c: 162: uint8_t mpu9250_i2c_config_fs(mpu9250 *mpu, uint8_t axes9) {
+[e :U _mpu9250_i2c_config_fs ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _axes9 `uc ~T0 @X0 1 r2 ]
+[f ]
+"163
+[v _temp `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 163: uint8_t temp;
+[; ;mpu9250.c: 164: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 165: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 166: 0x1C);
+"166
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 28 `i `uc ]
+[; ;mpu9250.c: 167: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"167
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3225  ]
+[; ;mpu9250.c: 168: return 1;
+"168
+[e ) -> -> 1 `i `uc ]
+[e $UE 3224  ]
+[e :U 3225 ]
+[; ;mpu9250.c: 169: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 170: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 171: 0x1C,
+[; ;mpu9250.c: 172: temp & 0xE7 | mpu->scale.a_fs << 3);
+"172
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 28 `i `uc -> | & -> _temp `i -> 231 `i << -> . . *U _mpu 1 0 `i -> 3 `i `uc ]
+[; ;mpu9250.c: 173: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"173
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3226  ]
+[; ;mpu9250.c: 174: return 2;
+"174
+[e ) -> -> 2 `i `uc ]
+[e $UE 3224  ]
+[e :U 3226 ]
+[; ;mpu9250.c: 175: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 176: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 177: 0x1B);
+"177
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 27 `i `uc ]
+[; ;mpu9250.c: 178: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"178
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3227  ]
+[; ;mpu9250.c: 179: return 3;
+"179
+[e ) -> -> 3 `i `uc ]
+[e $UE 3224  ]
+[e :U 3227 ]
+[; ;mpu9250.c: 180: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 181: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 182: 0x1B,
+[; ;mpu9250.c: 183: temp & 0xE7 | mpu->scale.g_fs << 3);
+"183
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 27 `i `uc -> | & -> _temp `i -> 231 `i << -> . . *U _mpu 1 1 `i -> 3 `i `uc ]
+[; ;mpu9250.c: 184: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"184
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3228  ]
+[; ;mpu9250.c: 185: return 4;
+"185
+[e ) -> -> 4 `i `uc ]
+[e $UE 3224  ]
+[e :U 3228 ]
+[; ;mpu9250.c: 187: if (axes9) {
+"187
+[e $ ! != -> _axes9 `i -> -> -> 0 `i `uc `i 3229  ]
+{
+[; ;mpu9250.c: 188: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 189: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 190: 0x0A);
+"190
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc ]
+[; ;mpu9250.c: 191: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"191
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3230  ]
+[; ;mpu9250.c: 192: return 5;
+"192
+[e ) -> -> 5 `i `uc ]
+[e $UE 3224  ]
+[e :U 3230 ]
+[; ;mpu9250.c: 193: i2c1_write1ByteRegister(
+[; ;mpu9250.c: 194: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 195: 0x0A,
+[; ;mpu9250.c: 196: temp & 0xEF | mpu->scale.m_fs << 4);
+"196
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc -> | & -> _temp `i -> 239 `i << -> . . *U _mpu 1 2 `i -> 4 `i `uc ]
+[; ;mpu9250.c: 197: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"197
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3231  ]
+[; ;mpu9250.c: 198: return 6;
+"198
+[e ) -> -> 6 `i `uc ]
+[e $UE 3224  ]
+[e :U 3231 ]
+"199
+}
+[e :U 3229 ]
+[; ;mpu9250.c: 199: }
+[; ;mpu9250.c: 201: return 0;
+"201
+[e ) -> -> 0 `i `uc ]
+[e $UE 3224  ]
+[; ;mpu9250.c: 202: }
+"202
+[e :UE 3224 ]
+}
+"208
+[v _mpu9250_i2c_get_fs `(uc ~T0 @X0 1 ef3`*S3202`*S3196`uc ]
+{
+[; ;mpu9250.c: 208: uint8_t mpu9250_i2c_get_fs(mpu9250 *mpu, full_scale *fs, uint8_t axes9) {
+[e :U _mpu9250_i2c_get_fs ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _fs `*S3196 ~T0 @X0 1 r2 ]
+[v _axes9 `uc ~T0 @X0 1 r3 ]
+[f ]
+"209
+[v _temp `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 209: uint8_t temp;
+[; ;mpu9250.c: 210: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 211: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 212: 0x1C);
+"212
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 28 `i `uc ]
+[; ;mpu9250.c: 213: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"213
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3233  ]
+[; ;mpu9250.c: 214: return 1;
+"214
+[e ) -> -> 1 `i `uc ]
+[e $UE 3232  ]
+[e :U 3233 ]
+[; ;mpu9250.c: 215: fs->a_fs = (temp >> 3) & 0x03;
+"215
+[e = . *U _fs 0 -> & >> -> _temp `i -> 3 `i -> 3 `i `uc ]
+[; ;mpu9250.c: 216: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 217: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 218: 0x1B);
+"218
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 27 `i `uc ]
+[; ;mpu9250.c: 219: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"219
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3234  ]
+[; ;mpu9250.c: 220: return 2;
+"220
+[e ) -> -> 2 `i `uc ]
+[e $UE 3232  ]
+[e :U 3234 ]
+[; ;mpu9250.c: 221: fs->g_fs = (temp >> 3) & 0x03;
+"221
+[e = . *U _fs 1 -> & >> -> _temp `i -> 3 `i -> 3 `i `uc ]
+[; ;mpu9250.c: 223: if (axes9) {
+"223
+[e $ ! != -> _axes9 `i -> -> -> 0 `i `uc `i 3235  ]
+{
+[; ;mpu9250.c: 224: temp = i2c1_read1ByteRegister(
+[; ;mpu9250.c: 225: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 226: 0x0A);
+"226
+[e = _temp ( _i2c1_read1ByteRegister (2 , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc ]
+[; ;mpu9250.c: 227: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"227
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3236  ]
+[; ;mpu9250.c: 228: return 3;
+"228
+[e ) -> -> 3 `i `uc ]
+[e $UE 3232  ]
+[e :U 3236 ]
+[; ;mpu9250.c: 229: fs->m_fs = (temp >> 4) & 0x01;
+"229
+[e = . *U _fs 2 -> & >> -> _temp `i -> 4 `i -> 1 `i `uc ]
+"230
+}
+[e :U 3235 ]
+[; ;mpu9250.c: 230: }
+[; ;mpu9250.c: 232: return 0;
+"232
+[e ) -> -> 0 `i `uc ]
+[e $UE 3232  ]
+[; ;mpu9250.c: 233: }
+"233
+[e :UE 3232 ]
+}
+"240
+[v _mpu9250_i2c_update_gyro_offset `(uc ~T0 @X0 1 ef2`*S3202`*S3198 ]
+{
+[; ;mpu9250.c: 240: uint8_t mpu9250_i2c_update_gyro_offset(mpu9250 *mpu, vector3_16s *gyro) {
+[e :U _mpu9250_i2c_update_gyro_offset ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _gyro `*S3198 ~T0 @X0 1 r2 ]
+[f ]
+[; ;mpu9250.c: 241: i2c1_write2ByteRegister(
+[; ;mpu9250.c: 242: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 243: 0x13,
+[; ;mpu9250.c: 244: gyro->x);
+"244
+[e ( _i2c1_write2ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 19 `i `uc -> . *U _gyro 0 `ui ]
+[; ;mpu9250.c: 245: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"245
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3238  ]
+[; ;mpu9250.c: 246: return 1;
+"246
+[e ) -> -> 1 `i `uc ]
+[e $UE 3237  ]
+[e :U 3238 ]
+[; ;mpu9250.c: 247: i2c1_write2ByteRegister(
+[; ;mpu9250.c: 248: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 249: 0x15,
+[; ;mpu9250.c: 250: gyro->y);
+"250
+[e ( _i2c1_write2ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 21 `i `uc -> . *U _gyro 1 `ui ]
+[; ;mpu9250.c: 251: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"251
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3239  ]
+[; ;mpu9250.c: 252: return 1;
+"252
+[e ) -> -> 1 `i `uc ]
+[e $UE 3237  ]
+[e :U 3239 ]
+[; ;mpu9250.c: 253: i2c1_write2ByteRegister(
+[; ;mpu9250.c: 254: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 255: 0x17,
+[; ;mpu9250.c: 256: gyro->z);
+"256
+[e ( _i2c1_write2ByteRegister (3 , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 23 `i `uc -> . *U _gyro 2 `ui ]
+[; ;mpu9250.c: 257: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"257
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3240  ]
+[; ;mpu9250.c: 258: return 1;
+"258
+[e ) -> -> 1 `i `uc ]
+[e $UE 3237  ]
+[e :U 3240 ]
+[; ;mpu9250.c: 260: return 0;
+"260
+[e ) -> -> 0 `i `uc ]
+[e $UE 3237  ]
+[; ;mpu9250.c: 261: }
+"261
+[e :UE 3237 ]
+}
+"267
+[v _mpu9250_i2c_dump_config `(uc ~T0 @X0 1 ef2`*S3202`*S3197 ]
+{
+[; ;mpu9250.c: 267: uint8_t mpu9250_i2c_dump_config(mpu9250 *mpu, mpu9250_cfg *cfg) {
+[e :U _mpu9250_i2c_dump_config ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _cfg `*S3197 ~T0 @X0 1 r2 ]
+[f ]
+[; ;mpu9250.c: 268: i2c1_readDataBlock(
+[; ;mpu9250.c: 269: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 270: 0x1A,
+[; ;mpu9250.c: 271: (char *)cfg,
+[; ;mpu9250.c: 272: 4);
+"272
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 26 `i `uc -> _cfg `*uc -> -> 4 `i `uc ]
+[; ;mpu9250.c: 273: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"273
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3242  ]
+[; ;mpu9250.c: 274: return 1;
+"274
+[e ) -> -> 1 `i `uc ]
+[e $UE 3241  ]
+[e :U 3242 ]
+[; ;mpu9250.c: 275: i2c1_readDataBlock(
+[; ;mpu9250.c: 276: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 277: 0x0A,
+[; ;mpu9250.c: 278: (char *)&(cfg->magneto_cntl1),
+[; ;mpu9250.c: 279: 2);
+"279
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 10 `i `uc &U . *U _cfg 4 -> -> 2 `i `uc ]
+[; ;mpu9250.c: 280: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"280
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3243  ]
+[; ;mpu9250.c: 281: return 2;
+"281
+[e ) -> -> 2 `i `uc ]
+[e $UE 3241  ]
+[e :U 3243 ]
+[; ;mpu9250.c: 283: return 0;
+"283
+[e ) -> -> 0 `i `uc ]
+[e $UE 3241  ]
+[; ;mpu9250.c: 284: }
+"284
+[e :UE 3241 ]
+}
+"290
+[v _mpu9250_i2c_read_gyro_raw `(uc ~T0 @X0 1 ef2`*S3202`*S3198 ]
+{
+[; ;mpu9250.c: 290: uint8_t mpu9250_i2c_read_gyro_raw(mpu9250 *mpu, vector3_16s *gyro) {
+[e :U _mpu9250_i2c_read_gyro_raw ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _gyro `*S3198 ~T0 @X0 1 r2 ]
+[f ]
+[; ;mpu9250.c: 291: i2c1_readDataBlock(
+[; ;mpu9250.c: 292: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 293: 0x43,
+[; ;mpu9250.c: 294: (char *)gyro,
+[; ;mpu9250.c: 295: 6);
+"295
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 67 `i `uc -> _gyro `*uc -> -> 6 `i `uc ]
+[; ;mpu9250.c: 296: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"296
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3245  ]
+[; ;mpu9250.c: 297: return 1;
+"297
+[e ) -> -> 1 `i `uc ]
+[e $UE 3244  ]
+[e :U 3245 ]
+[; ;mpu9250.c: 300: gyro->x = (gyro->x) << 8 | (gyro->x) >> 8;
+"300
+[e = . *U _gyro 0 | << . *U _gyro 0 -> 8 `i >> . *U _gyro 0 -> 8 `i ]
+[; ;mpu9250.c: 301: gyro->y = (gyro->y) << 8 | (gyro->y) >> 8;
+"301
+[e = . *U _gyro 1 | << . *U _gyro 1 -> 8 `i >> . *U _gyro 1 -> 8 `i ]
+[; ;mpu9250.c: 302: gyro->z = (gyro->z) << 8 | (gyro->z) >> 8;
+"302
+[e = . *U _gyro 2 | << . *U _gyro 2 -> 8 `i >> . *U _gyro 2 -> 8 `i ]
+[; ;mpu9250.c: 304: return 0;
+"304
+[e ) -> -> 0 `i `uc ]
+[e $UE 3244  ]
+[; ;mpu9250.c: 305: }
+"305
+[e :UE 3244 ]
+}
+"312
+[v _mpu9250_i2c_read_accel_raw `(uc ~T0 @X0 1 ef2`*S3202`*S3198 ]
+{
+[; ;mpu9250.c: 312: uint8_t mpu9250_i2c_read_accel_raw(mpu9250 *mpu, vector3_16s *accel) {
+[e :U _mpu9250_i2c_read_accel_raw ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _accel `*S3198 ~T0 @X0 1 r2 ]
+[f ]
+[; ;mpu9250.c: 313: i2c1_readDataBlock(
+[; ;mpu9250.c: 314: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 315: 0x3B,
+[; ;mpu9250.c: 316: (char *)accel,
+[; ;mpu9250.c: 317: 6);
+"317
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 59 `i `uc -> _accel `*uc -> -> 6 `i `uc ]
+[; ;mpu9250.c: 318: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"318
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3247  ]
+[; ;mpu9250.c: 319: return 1;
+"319
+[e ) -> -> 1 `i `uc ]
+[e $UE 3246  ]
+[e :U 3247 ]
+[; ;mpu9250.c: 322: accel->x = (accel->x) << 8 | (accel->x) >> 8;
+"322
+[e = . *U _accel 0 | << . *U _accel 0 -> 8 `i >> . *U _accel 0 -> 8 `i ]
+[; ;mpu9250.c: 323: accel->y = (accel->y) << 8 | (accel->y) >> 8;
+"323
+[e = . *U _accel 1 | << . *U _accel 1 -> 8 `i >> . *U _accel 1 -> 8 `i ]
+[; ;mpu9250.c: 324: accel->z = (accel->z) << 8 | (accel->z) >> 8;
+"324
+[e = . *U _accel 2 | << . *U _accel 2 -> 8 `i >> . *U _accel 2 -> 8 `i ]
+[; ;mpu9250.c: 326: return 0;
+"326
+[e ) -> -> 0 `i `uc ]
+[e $UE 3246  ]
+[; ;mpu9250.c: 327: }
+"327
+[e :UE 3246 ]
+}
+"334
+[v _mpu9250_i2c_read_magneto_raw `(uc ~T0 @X0 1 ef2`*S3202`*S3198 ]
+{
+[; ;mpu9250.c: 334: uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *mpu, vector3_16s *magneto) {
+[e :U _mpu9250_i2c_read_magneto_raw ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _magneto `*S3198 ~T0 @X0 1 r2 ]
+[f ]
+[; ;mpu9250.c: 335: i2c1_readDataBlock(
+[; ;mpu9250.c: 336: 0b0001100 | mpu->addr,
+[; ;mpu9250.c: 337: 0x03,
+[; ;mpu9250.c: 338: (char *)magneto,
+[; ;mpu9250.c: 339: 6);
+"339
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 12 `i -> . *U _mpu 0 `i `uc -> -> 3 `i `uc -> _magneto `*uc -> -> 6 `i `uc ]
+[; ;mpu9250.c: 340: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"340
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3249  ]
+[; ;mpu9250.c: 341: return 1;
+"341
+[e ) -> -> 1 `i `uc ]
+[e $UE 3248  ]
+[e :U 3249 ]
+[; ;mpu9250.c: 343: return 0;
+"343
+[e ) -> -> 0 `i `uc ]
+[e $UE 3248  ]
+[; ;mpu9250.c: 344: }
+"344
+[e :UE 3248 ]
+}
+"352
+[v _mpu9250_i2c_read_axes6_raw `(uc ~T0 @X0 1 ef2`*S3202`*S3200 ]
+{
+[; ;mpu9250.c: 352: uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *mpu, axes6_raw *data) {
+[e :U _mpu9250_i2c_read_axes6_raw ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _data `*S3200 ~T0 @X0 1 r2 ]
+[f ]
+[; ;mpu9250.c: 353: i2c1_readDataBlock(
+[; ;mpu9250.c: 354: 0b1101000 | mpu->addr,
+[; ;mpu9250.c: 355: 0x3B,
+[; ;mpu9250.c: 356: (char *)data,
+[; ;mpu9250.c: 357: 14);
+"357
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 104 `i -> . *U _mpu 0 `i `uc -> -> 59 `i `uc -> _data `*uc -> -> 14 `i `uc ]
+[; ;mpu9250.c: 358: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"358
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3251  ]
+[; ;mpu9250.c: 359: return 1;
+"359
+[e ) -> -> 1 `i `uc ]
+[e $UE 3250  ]
+[e :U 3251 ]
+[; ;mpu9250.c: 362: data->gyro.x = (data->gyro.x) << 8 | (data->gyro.x) >> 8;
+"362
+[e = . . *U _data 0 0 | << . . *U _data 0 0 -> 8 `i >> . . *U _data 0 0 -> 8 `i ]
+[; ;mpu9250.c: 363: data->gyro.y = (data->gyro.y) << 8 | (data->gyro.y) >> 8;
+"363
+[e = . . *U _data 0 1 | << . . *U _data 0 1 -> 8 `i >> . . *U _data 0 1 -> 8 `i ]
+[; ;mpu9250.c: 364: data->gyro.z = (data->gyro.z) << 8 | (data->gyro.z) >> 8;
+"364
+[e = . . *U _data 0 2 | << . . *U _data 0 2 -> 8 `i >> . . *U _data 0 2 -> 8 `i ]
+[; ;mpu9250.c: 370: data->accel.x = (data->accel.x) << 8 | (data->accel.x) >> 8;
+"370
+[e = . . *U _data 2 0 | << . . *U _data 2 0 -> 8 `i >> . . *U _data 2 0 -> 8 `i ]
+[; ;mpu9250.c: 371: data->accel.y = (data->accel.y) << 8 | (data->accel.y) >> 8;
+"371
+[e = . . *U _data 2 1 | << . . *U _data 2 1 -> 8 `i >> . . *U _data 2 1 -> 8 `i ]
+[; ;mpu9250.c: 372: data->accel.z = (data->accel.z) << 8 | (data->accel.z) >> 8;
+"372
+[e = . . *U _data 2 2 | << . . *U _data 2 2 -> 8 `i >> . . *U _data 2 2 -> 8 `i ]
+[; ;mpu9250.c: 374: return 0;
+"374
+[e ) -> -> 0 `i `uc ]
+[e $UE 3250  ]
+[; ;mpu9250.c: 375: }
+"375
+[e :UE 3250 ]
+}
+"383
+[v _mpu9250_i2c_read_axes9_raw `(uc ~T0 @X0 1 ef2`*S3202`*S3201 ]
+{
+[; ;mpu9250.c: 383: uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *mpu, axes9_raw *data) {
+[e :U _mpu9250_i2c_read_axes9_raw ]
+[v _mpu `*S3202 ~T0 @X0 1 r1 ]
+[v _data `*S3201 ~T0 @X0 1 r2 ]
+[f ]
+"384
+[v _err `uc ~T0 @X0 1 a ]
+[; ;mpu9250.c: 384: uint8_t err;
+[; ;mpu9250.c: 385: if (err = mpu9250_i2c_read_axes6_raw(mpu, (axes6_raw *)data))
+"385
+[e $ ! != -> = _err ( _mpu9250_i2c_read_axes6_raw (2 , _mpu -> _data `*S3200 `i -> -> -> 0 `i `uc `i 3253  ]
+[; ;mpu9250.c: 386: return err;
+"386
+[e ) _err ]
+[e $UE 3252  ]
+[e :U 3253 ]
+[; ;mpu9250.c: 387: if (err = mpu9250_i2c_read_magneto_raw(mpu, &(data->magneto)))
+"387
+[e $ ! != -> = _err ( _mpu9250_i2c_read_magneto_raw (2 , _mpu &U . *U _data 3 `i -> -> -> 0 `i `uc `i 3254  ]
+[; ;mpu9250.c: 388: return err;
+"388
+[e ) _err ]
+[e $UE 3252  ]
+[e :U 3254 ]
+[; ;mpu9250.c: 390: return 0;
+"390
+[e ) -> -> 0 `i `uc ]
+[e $UE 3252  ]
+[; ;mpu9250.c: 391: }
+"391
+[e :UE 3252 ]
 }

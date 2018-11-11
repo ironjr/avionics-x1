@@ -80,28 +80,28 @@ typedef struct {
 } bmp280_calib_data;
 
 typedef struct {
-    bit addr;
+    uint8_t addr;
     bmp280_calib_data calib;
     int32_t t_fine;
 } bmp280;
 
 /* Function declaration */
-bit bmp280_i2c_init(bmp280 *);
-void bmp280_i2c_set_ctrl(bmp280 *, uint8_t, uint8_t, uint8_t);
-void bmp280_i2c_set_conf(bmp280 *, uint8_t, uint8_t);
-void bmp280_i2c_set_osrs_t(bmp280 *, uint8_t);
-void bmp280_i2c_set_osrs_p(bmp280 *, uint8_t);
-void bmp280_i2c_set_mode(bmp280 *, uint8_t);
-void bmp280_i2c_set_t_sb(bmp280 *, uint8_t);
-void bmp280_i2c_set_filter(bmp280 *, uint8_t);
-uint8_t bmp280_i2c_get_osrs_t(bmp280 *);
-uint8_t bmp280_i2c_get_osrs_p(bmp280 *);
-uint8_t bmp280_i2c_get_mode(bmp280 *);
-uint8_t bmp280_i2c_get_t_sb(bmp280 *);
-uint8_t bmp280_i2c_get_filter(bmp280 *);
-int32_t bmp280_i2c_read_temp_i32(bmp280 *);
-int32_t bmp280_i2c_read_press_raw(bmp280 *);
-int32_t bmp280_i2c_read_press_i32(bmp280 *);
+uint8_t bmp280_i2c_init(bmp280 *);
+uint8_t bmp280_i2c_set_ctrl(bmp280 *, uint8_t, uint8_t, uint8_t);
+uint8_t bmp280_i2c_set_conf(bmp280 *, uint8_t, uint8_t);
+uint8_t bmp280_i2c_set_osrs_t(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_osrs_p(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_mode(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_t_sb(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_filter(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_get_osrs_t(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_osrs_p(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_mode(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_t_sb(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_filter(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_read_temp_i32(bmp280 *, int32_t *);
+uint8_t bmp280_i2c_read_press_raw(bmp280 *, int32_t *);
+uint8_t bmp280_i2c_read_press_i32(bmp280 *, uint32_t *);
 
 #ifdef __cplusplus
 //}

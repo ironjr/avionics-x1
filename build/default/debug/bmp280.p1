@@ -1,18 +1,21 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"53 bmp280.h
+"66 bmp280.h
 [s S3195 `ui 1 `i 1 `i 1 `ui 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 ]
 [n S3195 . dig_T1 dig_T2 dig_T3 dig_P1 dig_P2 dig_P3 dig_P4 dig_P5 dig_P6 dig_P7 dig_P8 dig_P9 ]
-"238 mcc_generated_files/i2c1.h
-[v _i2c1_readDataBlock `(v ~T0 @X0 0 ef4`uc`uc`*uc`uc ]
-"22 bmp280.c
+"82
+[s S3196 `uc 1 `S3195 1 `l 1 ]
+[n S3196 . addr calib t_fine ]
+"193 mcc_generated_files/i2c1.h
+[v _i2c1_read1ByteRegister `(uc ~T0 @X0 0 ef2`uc`uc ]
+"17 bmp280.c
 [c E26611 0 1 .. ]
 [n E26611 . I2C1_GOOD I2C1_FAIL_TIMEOUT  ]
 "98 mcc_generated_files/i2c1.h
 [v _i2c1_getLastError `(E26611 ~T0 @X0 0 ef ]
+"238
+[v _i2c1_readDataBlock `(v ~T0 @X0 0 ef4`uc`uc`*uc`uc ]
 "122
 [v _i2c1_write1ByteRegister `(v ~T0 @X0 0 ef3`uc`uc`uc ]
-"193
-[v _i2c1_read1ByteRegister `(uc ~T0 @X0 0 ef2`uc`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -25386,539 +25389,792 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 214: uint16_t i2c1_read2ByteRegister(uint8_t address, uint8_t reg);
 [; ;i2c1.h: 238: void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
 [; ;i2c1.h: 263: void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
-[; ;bmp280.h: 53: typedef struct {
-[; ;bmp280.h: 54: uint16_t dig_T1;
-[; ;bmp280.h: 55: int16_t dig_T2;
-[; ;bmp280.h: 56: int16_t dig_T3;
-[; ;bmp280.h: 58: uint16_t dig_P1;
-[; ;bmp280.h: 59: int16_t dig_P2;
-[; ;bmp280.h: 60: int16_t dig_P3;
-[; ;bmp280.h: 61: int16_t dig_P4;
-[; ;bmp280.h: 62: int16_t dig_P5;
-[; ;bmp280.h: 63: int16_t dig_P6;
-[; ;bmp280.h: 64: int16_t dig_P7;
-[; ;bmp280.h: 65: int16_t dig_P8;
-[; ;bmp280.h: 66: int16_t dig_P9;
-[; ;bmp280.h: 67: } bmp280_calib_data;
-[; ;bmp280.h: 70: bit bmp280_i2c_init(void);
-[; ;bmp280.h: 71: void bmp280_i2c_set_ctrl(uint8_t, uint8_t, uint8_t);
-[; ;bmp280.h: 72: void bmp280_i2c_set_conf(uint8_t, uint8_t);
-[; ;bmp280.h: 73: void bmp280_i2c_set_osrs_t(uint8_t);
-[; ;bmp280.h: 74: void bmp280_i2c_set_osrs_p(uint8_t);
-[; ;bmp280.h: 75: void bmp280_i2c_set_mode(uint8_t);
-[; ;bmp280.h: 76: void bmp280_i2c_set_t_sb(uint8_t);
-[; ;bmp280.h: 77: void bmp280_i2c_set_filter(uint8_t);
-[; ;bmp280.h: 78: uint8_t bmp280_i2c_get_osrs_t(void);
-[; ;bmp280.h: 79: uint8_t bmp280_i2c_get_osrs_p(void);
-[; ;bmp280.h: 80: uint8_t bmp280_i2c_get_mode(void);
-[; ;bmp280.h: 81: uint8_t bmp280_i2c_get_t_sb(void);
-[; ;bmp280.h: 82: uint8_t bmp280_i2c_get_filter(void);
-[; ;bmp280.h: 83: int32_t bmp280_i2c_read_temp_i32(void);
-[; ;bmp280.h: 84: int32_t bmp280_i2c_read_press_raw(void);
-[; ;bmp280.h: 85: int32_t bmp280_i2c_read_press_i32(void);
+[; ;bmp280.h: 66: typedef struct {
+[; ;bmp280.h: 67: uint16_t dig_T1;
+[; ;bmp280.h: 68: int16_t dig_T2;
+[; ;bmp280.h: 69: int16_t dig_T3;
+[; ;bmp280.h: 71: uint16_t dig_P1;
+[; ;bmp280.h: 72: int16_t dig_P2;
+[; ;bmp280.h: 73: int16_t dig_P3;
+[; ;bmp280.h: 74: int16_t dig_P4;
+[; ;bmp280.h: 75: int16_t dig_P5;
+[; ;bmp280.h: 76: int16_t dig_P6;
+[; ;bmp280.h: 77: int16_t dig_P7;
+[; ;bmp280.h: 78: int16_t dig_P8;
+[; ;bmp280.h: 79: int16_t dig_P9;
+[; ;bmp280.h: 80: } bmp280_calib_data;
+[; ;bmp280.h: 82: typedef struct {
+[; ;bmp280.h: 83: uint8_t addr;
+[; ;bmp280.h: 84: bmp280_calib_data calib;
+[; ;bmp280.h: 85: int32_t t_fine;
+[; ;bmp280.h: 86: } bmp280;
+[; ;bmp280.h: 89: uint8_t bmp280_i2c_init(bmp280 *);
+[; ;bmp280.h: 90: uint8_t bmp280_i2c_set_ctrl(bmp280 *, uint8_t, uint8_t, uint8_t);
+[; ;bmp280.h: 91: uint8_t bmp280_i2c_set_conf(bmp280 *, uint8_t, uint8_t);
+[; ;bmp280.h: 92: uint8_t bmp280_i2c_set_osrs_t(bmp280 *, uint8_t);
+[; ;bmp280.h: 93: uint8_t bmp280_i2c_set_osrs_p(bmp280 *, uint8_t);
+[; ;bmp280.h: 94: uint8_t bmp280_i2c_set_mode(bmp280 *, uint8_t);
+[; ;bmp280.h: 95: uint8_t bmp280_i2c_set_t_sb(bmp280 *, uint8_t);
+[; ;bmp280.h: 96: uint8_t bmp280_i2c_set_filter(bmp280 *, uint8_t);
+[; ;bmp280.h: 97: uint8_t bmp280_i2c_get_osrs_t(bmp280 *, uint8_t *);
+[; ;bmp280.h: 98: uint8_t bmp280_i2c_get_osrs_p(bmp280 *, uint8_t *);
+[; ;bmp280.h: 99: uint8_t bmp280_i2c_get_mode(bmp280 *, uint8_t *);
+[; ;bmp280.h: 100: uint8_t bmp280_i2c_get_t_sb(bmp280 *, uint8_t *);
+[; ;bmp280.h: 101: uint8_t bmp280_i2c_get_filter(bmp280 *, uint8_t *);
+[; ;bmp280.h: 102: uint8_t bmp280_i2c_read_temp_i32(bmp280 *, int32_t *);
+[; ;bmp280.h: 103: uint8_t bmp280_i2c_read_press_raw(bmp280 *, int32_t *);
+[; ;bmp280.h: 104: uint8_t bmp280_i2c_read_press_i32(bmp280 *, uint32_t *);
 "13 bmp280.c
-[v _bmp280_calib `S3195 ~T0 @X0 1 s ]
-[; ;bmp280.c: 13: static bmp280_calib_data bmp280_calib;
-"14
-[v _bmp280_t_fine `l ~T0 @X0 1 s ]
-[; ;bmp280.c: 14: static int32_t bmp280_t_fine;
-"16
-[v _bmp280_i2c_init `(b ~T0 @X0 1 ef ]
+[v _bmp280_i2c_init `(uc ~T0 @X0 1 ef1`*S3196 ]
 {
-[; ;bmp280.c: 16: bit bmp280_i2c_init(void) {
+[; ;bmp280.c: 13: uint8_t bmp280_i2c_init(bmp280 *bmp) {
 [e :U _bmp280_i2c_init ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
 [f ]
-[; ;bmp280.c: 17: i2c1_readDataBlock(
-[; ;bmp280.c: 18: 0b1110110,
-[; ;bmp280.c: 19: 0x88,
-[; ;bmp280.c: 20: (char *)(&bmp280_calib),
-[; ;bmp280.c: 21: 24);
-"21
-[e ( _i2c1_readDataBlock (4 , , , -> -> 118 `i `uc -> -> 136 `i `uc -> &U _bmp280_calib `*uc -> -> 24 `i `uc ]
-[; ;bmp280.c: 22: return i2c1_getLastError() == I2C1_GOOD;
-"22
-[e ) -> -> == -> ( _i2c1_getLastError ..  `i -> . `E26611 0 `i `i `b ]
-[e $UE 3196  ]
-[; ;bmp280.c: 23: }
-"23
-[e :UE 3196 ]
-}
+"14
+[v _chip_id `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 14: uint8_t chip_id = i2c1_read1ByteRegister(
+[; ;bmp280.c: 15: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 16: 0xD0);
+"16
+[e = _chip_id ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 208 `i `uc ]
+[; ;bmp280.c: 17: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT || chip_id != 0x58)
+"17
+[e $ ! || == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i != -> _chip_id `i -> 88 `i 3198  ]
+[; ;bmp280.c: 18: return 1;
+"18
+[e ) -> -> 1 `i `uc ]
+[e $UE 3197  ]
+[e :U 3198 ]
+[; ;bmp280.c: 20: i2c1_readDataBlock(
+[; ;bmp280.c: 21: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 22: 0x88,
+[; ;bmp280.c: 23: (char *)(&bmp->calib),
+[; ;bmp280.c: 24: 24);
+"24
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 136 `i `uc -> &U . *U _bmp 1 `*uc -> -> 24 `i `uc ]
+[; ;bmp280.c: 25: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "25
-[v _bmp280_i2c_set_ctrl `(v ~T0 @X0 1 ef3`uc`uc`uc ]
-{
-[; ;bmp280.c: 25: void bmp280_i2c_set_ctrl(uint8_t osrs_t, uint8_t osrs_p, uint8_t mode) {
-[e :U _bmp280_i2c_set_ctrl ]
-[v _osrs_t `uc ~T0 @X0 1 r1 ]
-[v _osrs_p `uc ~T0 @X0 1 r2 ]
-[v _mode `uc ~T0 @X0 1 r3 ]
-[f ]
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3199  ]
+[; ;bmp280.c: 26: return 2;
 "26
-[v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 26: uint8_t ctrl = (uint8_t)(((osrs_t & 0x7) << 5) |
-[; ;bmp280.c: 27: ((osrs_p & 0x7) << 2) |
-[; ;bmp280.c: 28: (mode & 0x3));
+[e ) -> -> 2 `i `uc ]
+[e $UE 3197  ]
+[e :U 3199 ]
+[; ;bmp280.c: 28: return 0;
 "28
-[e = _ctrl -> | | << & -> _osrs_t `i -> 7 `i -> 5 `i << & -> _osrs_p `i -> 7 `i -> 2 `i & -> _mode `i -> 3 `i `uc ]
-[; ;bmp280.c: 29: i2c1_write1ByteRegister(
-[; ;bmp280.c: 30: 0b1110110,
-[; ;bmp280.c: 31: 0xF4,
-[; ;bmp280.c: 32: ctrl);
-"32
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 244 `i `uc _ctrl ]
-[; ;bmp280.c: 33: }
-"33
+[e ) -> -> 0 `i `uc ]
+[e $UE 3197  ]
+[; ;bmp280.c: 29: }
+"29
 [e :UE 3197 ]
 }
-"35
-[v _bmp280_i2c_set_conf `(v ~T0 @X0 1 ef2`uc`uc ]
+"31
+[v _bmp280_i2c_set_ctrl `(uc ~T0 @X0 1 ef4`*S3196`uc`uc`uc ]
 {
-[; ;bmp280.c: 35: void bmp280_i2c_set_conf(uint8_t t_sb, uint8_t filter) {
-[e :U _bmp280_i2c_set_conf ]
-[v _t_sb `uc ~T0 @X0 1 r1 ]
-[v _filter `uc ~T0 @X0 1 r2 ]
+[; ;bmp280.c: 31: uint8_t bmp280_i2c_set_ctrl(bmp280 *bmp, uint8_t osrs_t, uint8_t osrs_p, uint8_t mode) {
+[e :U _bmp280_i2c_set_ctrl ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _osrs_t `uc ~T0 @X0 1 r2 ]
+[v _osrs_p `uc ~T0 @X0 1 r3 ]
+[v _mode `uc ~T0 @X0 1 r4 ]
 [f ]
-"36
-[v _cfg `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 36: uint8_t cfg;
-[; ;bmp280.c: 37: cfg = i2c1_read1ByteRegister(
-[; ;bmp280.c: 38: 0b1110110,
-[; ;bmp280.c: 39: 0xF5);
+"32
+[v _ctrl `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 32: uint8_t ctrl = (uint8_t)(((osrs_t & 0x7) << 5) |
+[; ;bmp280.c: 33: ((osrs_p & 0x7) << 2) |
+[; ;bmp280.c: 34: (mode & 0x3));
+"34
+[e = _ctrl -> | | << & -> _osrs_t `i -> 7 `i -> 5 `i << & -> _osrs_p `i -> 7 `i -> 2 `i & -> _mode `i -> 3 `i `uc ]
+[; ;bmp280.c: 35: i2c1_write1ByteRegister(
+[; ;bmp280.c: 36: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 37: 0xF4,
+[; ;bmp280.c: 38: ctrl);
+"38
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc _ctrl ]
+[; ;bmp280.c: 39: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "39
-[e = _cfg ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 245 `i `uc ]
-[; ;bmp280.c: 40: cfg = (uint8_t)(((t_sb & 0x7) << 5) |
-[; ;bmp280.c: 41: ((filter & 0x7) << 2) |
-[; ;bmp280.c: 42: (cfg & 0x3));
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3201  ]
+[; ;bmp280.c: 40: return 1;
+"40
+[e ) -> -> 1 `i `uc ]
+[e $UE 3200  ]
+[e :U 3201 ]
+[; ;bmp280.c: 42: return 0;
 "42
-[e = _cfg -> | | << & -> _t_sb `i -> 7 `i -> 5 `i << & -> _filter `i -> 7 `i -> 2 `i & -> _cfg `i -> 3 `i `uc ]
-[; ;bmp280.c: 43: i2c1_write1ByteRegister(
-[; ;bmp280.c: 44: 0b1110110,
-[; ;bmp280.c: 45: 0xF5,
-[; ;bmp280.c: 46: cfg);
-"46
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 245 `i `uc _cfg ]
-[; ;bmp280.c: 47: }
-"47
-[e :UE 3198 ]
-}
-"49
-[v _bmp280_i2c_set_osrs_t `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;bmp280.c: 49: void bmp280_i2c_set_osrs_t(uint8_t osrs_t) {
-[e :U _bmp280_i2c_set_osrs_t ]
-[v _osrs_t `uc ~T0 @X0 1 r1 ]
-[f ]
-"50
-[v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 50: uint8_t ctrl;
-[; ;bmp280.c: 51: ctrl = i2c1_read1ByteRegister(
-[; ;bmp280.c: 52: 0b1110110,
-[; ;bmp280.c: 53: 0xF4);
-"53
-[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 244 `i `uc ]
-[; ;bmp280.c: 54: ctrl = (uint8_t)((ctrl & 0x1F) |
-[; ;bmp280.c: 55: ((osrs_t & 0x7) << 5));
-"55
-[e = _ctrl -> | & -> _ctrl `i -> 31 `i << & -> _osrs_t `i -> 7 `i -> 5 `i `uc ]
-[; ;bmp280.c: 56: i2c1_write1ByteRegister(
-[; ;bmp280.c: 57: 0b1110110,
-[; ;bmp280.c: 58: 0xF4,
-[; ;bmp280.c: 59: ctrl);
-"59
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 244 `i `uc _ctrl ]
-[; ;bmp280.c: 60: }
-"60
-[e :UE 3199 ]
-}
-"62
-[v _bmp280_i2c_set_osrs_p `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;bmp280.c: 62: void bmp280_i2c_set_osrs_p(uint8_t osrs_p) {
-[e :U _bmp280_i2c_set_osrs_p ]
-[v _osrs_p `uc ~T0 @X0 1 r1 ]
-[f ]
-"63
-[v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 63: uint8_t ctrl;
-[; ;bmp280.c: 64: ctrl = i2c1_read1ByteRegister(
-[; ;bmp280.c: 65: 0b1110110,
-[; ;bmp280.c: 66: 0xF4);
-"66
-[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 244 `i `uc ]
-[; ;bmp280.c: 67: ctrl = (uint8_t)((ctrl & 0xE3) |
-[; ;bmp280.c: 68: ((osrs_p & 0x7) << 2));
-"68
-[e = _ctrl -> | & -> _ctrl `i -> 227 `i << & -> _osrs_p `i -> 7 `i -> 2 `i `uc ]
-[; ;bmp280.c: 69: i2c1_write1ByteRegister(
-[; ;bmp280.c: 70: 0b1110110,
-[; ;bmp280.c: 71: 0xF4,
-[; ;bmp280.c: 72: ctrl);
-"72
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 244 `i `uc _ctrl ]
-[; ;bmp280.c: 73: }
-"73
+[e ) -> -> 0 `i `uc ]
+[e $UE 3200  ]
+[; ;bmp280.c: 43: }
+"43
 [e :UE 3200 ]
 }
-"75
-[v _bmp280_i2c_set_mode `(v ~T0 @X0 1 ef1`uc ]
+"45
+[v _bmp280_i2c_set_conf `(uc ~T0 @X0 1 ef3`*S3196`uc`uc ]
 {
-[; ;bmp280.c: 75: void bmp280_i2c_set_mode(uint8_t mode) {
-[e :U _bmp280_i2c_set_mode ]
-[v _mode `uc ~T0 @X0 1 r1 ]
+[; ;bmp280.c: 45: uint8_t bmp280_i2c_set_conf(bmp280 *bmp, uint8_t t_sb, uint8_t filter) {
+[e :U _bmp280_i2c_set_conf ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _t_sb `uc ~T0 @X0 1 r2 ]
+[v _filter `uc ~T0 @X0 1 r3 ]
 [f ]
-"76
-[v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 76: uint8_t ctrl;
-[; ;bmp280.c: 77: ctrl = i2c1_read1ByteRegister(
-[; ;bmp280.c: 78: 0b1110110,
-[; ;bmp280.c: 79: 0xF4);
-"79
-[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 244 `i `uc ]
-[; ;bmp280.c: 80: ctrl = (uint8_t)((ctrl & 0xFC) |
-[; ;bmp280.c: 81: (mode & 0x3));
-"81
-[e = _ctrl -> | & -> _ctrl `i -> 252 `i & -> _mode `i -> 3 `i `uc ]
-[; ;bmp280.c: 82: i2c1_write1ByteRegister(
-[; ;bmp280.c: 83: 0b1110110,
-[; ;bmp280.c: 84: 0xF4,
-[; ;bmp280.c: 85: ctrl);
-"85
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 244 `i `uc _ctrl ]
-[; ;bmp280.c: 86: }
-"86
-[e :UE 3201 ]
-}
-"88
-[v _bmp280_i2c_set_t_sb `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;bmp280.c: 88: void bmp280_i2c_set_t_sb(uint8_t t_sb) {
-[e :U _bmp280_i2c_set_t_sb ]
-[v _t_sb `uc ~T0 @X0 1 r1 ]
-[f ]
-"89
+"46
 [v _cfg `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 89: uint8_t cfg;
-[; ;bmp280.c: 90: cfg = i2c1_read1ByteRegister(
-[; ;bmp280.c: 91: 0b1110110,
-[; ;bmp280.c: 92: 0xF5);
-"92
-[e = _cfg ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 245 `i `uc ]
-[; ;bmp280.c: 93: cfg = (uint8_t)((cfg & 0x1F) |
-[; ;bmp280.c: 94: ((t_sb & 0x7) << 5));
-"94
-[e = _cfg -> | & -> _cfg `i -> 31 `i << & -> _t_sb `i -> 7 `i -> 5 `i `uc ]
-[; ;bmp280.c: 95: i2c1_write1ByteRegister(
-[; ;bmp280.c: 96: 0b1110110,
-[; ;bmp280.c: 97: 0xF5,
-[; ;bmp280.c: 98: cfg);
-"98
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 245 `i `uc _cfg ]
-[; ;bmp280.c: 99: }
-"99
+[; ;bmp280.c: 46: uint8_t cfg;
+[; ;bmp280.c: 47: cfg = i2c1_read1ByteRegister(
+[; ;bmp280.c: 48: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 49: 0xF5);
+"49
+[e = _cfg ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc ]
+[; ;bmp280.c: 50: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"50
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3203  ]
+[; ;bmp280.c: 51: return 1;
+"51
+[e ) -> -> 1 `i `uc ]
+[e $UE 3202  ]
+[e :U 3203 ]
+[; ;bmp280.c: 53: cfg = (uint8_t)(((t_sb & 0x7) << 5) |
+[; ;bmp280.c: 54: ((filter & 0x7) << 2) |
+[; ;bmp280.c: 55: (cfg & 0x3));
+"55
+[e = _cfg -> | | << & -> _t_sb `i -> 7 `i -> 5 `i << & -> _filter `i -> 7 `i -> 2 `i & -> _cfg `i -> 3 `i `uc ]
+[; ;bmp280.c: 56: i2c1_write1ByteRegister(
+[; ;bmp280.c: 57: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 58: 0xF5,
+[; ;bmp280.c: 59: cfg);
+"59
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc _cfg ]
+[; ;bmp280.c: 60: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"60
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3204  ]
+[; ;bmp280.c: 61: return 2;
+"61
+[e ) -> -> 2 `i `uc ]
+[e $UE 3202  ]
+[e :U 3204 ]
+[; ;bmp280.c: 63: return 0;
+"63
+[e ) -> -> 0 `i `uc ]
+[e $UE 3202  ]
+[; ;bmp280.c: 64: }
+"64
 [e :UE 3202 ]
 }
-"101
-[v _bmp280_i2c_set_filter `(v ~T0 @X0 1 ef1`uc ]
+"66
+[v _bmp280_i2c_set_osrs_t `(uc ~T0 @X0 1 ef2`*S3196`uc ]
 {
-[; ;bmp280.c: 101: void bmp280_i2c_set_filter(uint8_t filter) {
-[e :U _bmp280_i2c_set_filter ]
-[v _filter `uc ~T0 @X0 1 r1 ]
+[; ;bmp280.c: 66: uint8_t bmp280_i2c_set_osrs_t(bmp280 *bmp, uint8_t osrs_t) {
+[e :U _bmp280_i2c_set_osrs_t ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _osrs_t `uc ~T0 @X0 1 r2 ]
 [f ]
-"102
-[v _cfg `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 102: uint8_t cfg;
-[; ;bmp280.c: 103: cfg = i2c1_read1ByteRegister(
-[; ;bmp280.c: 104: 0b1110110,
-[; ;bmp280.c: 105: 0xF5);
-"105
-[e = _cfg ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 245 `i `uc ]
-[; ;bmp280.c: 106: cfg = (uint8_t)((cfg & 0xE3) |
-[; ;bmp280.c: 107: ((filter & 0x7) << 2));
-"107
-[e = _cfg -> | & -> _cfg `i -> 227 `i << & -> _filter `i -> 7 `i -> 2 `i `uc ]
-[; ;bmp280.c: 108: i2c1_write1ByteRegister(
-[; ;bmp280.c: 109: 0b1110110,
-[; ;bmp280.c: 110: 0xF5,
-[; ;bmp280.c: 111: cfg);
-"111
-[e ( _i2c1_write1ByteRegister (3 , , -> -> 118 `i `uc -> -> 245 `i `uc _cfg ]
-[; ;bmp280.c: 112: }
-"112
-[e :UE 3203 ]
-}
-"114
-[v _bmp280_i2c_get_osrs_t `(uc ~T0 @X0 1 ef ]
-{
-[; ;bmp280.c: 114: uint8_t bmp280_i2c_get_osrs_t(void) {
-[e :U _bmp280_i2c_get_osrs_t ]
-[f ]
-"115
+"67
 [v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 115: uint8_t ctrl;
-[; ;bmp280.c: 116: ctrl = i2c1_read1ByteRegister(
-[; ;bmp280.c: 117: 0b1110110,
-[; ;bmp280.c: 118: 0xF4);
-"118
-[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 244 `i `uc ]
-[; ;bmp280.c: 119: return (uint8_t)((ctrl & 0xE0) >> 5);
-"119
-[e ) -> >> & -> _ctrl `i -> 224 `i -> 5 `i `uc ]
-[e $UE 3204  ]
-[; ;bmp280.c: 120: }
-"120
-[e :UE 3204 ]
-}
-"122
-[v _bmp280_i2c_get_osrs_p `(uc ~T0 @X0 1 ef ]
-{
-[; ;bmp280.c: 122: uint8_t bmp280_i2c_get_osrs_p(void) {
-[e :U _bmp280_i2c_get_osrs_p ]
-[f ]
-"123
-[v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 123: uint8_t ctrl;
-[; ;bmp280.c: 124: ctrl = i2c1_read1ByteRegister(
-[; ;bmp280.c: 125: 0b1110110,
-[; ;bmp280.c: 126: 0xF4);
-"126
-[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 244 `i `uc ]
-[; ;bmp280.c: 127: return (uint8_t)((ctrl & 0x1C) >> 2);
-"127
-[e ) -> >> & -> _ctrl `i -> 28 `i -> 2 `i `uc ]
+[; ;bmp280.c: 67: uint8_t ctrl;
+[; ;bmp280.c: 68: ctrl = i2c1_read1ByteRegister(
+[; ;bmp280.c: 69: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 70: 0xF4);
+"70
+[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc ]
+[; ;bmp280.c: 71: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"71
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3206  ]
+[; ;bmp280.c: 72: return 1;
+"72
+[e ) -> -> 1 `i `uc ]
 [e $UE 3205  ]
-[; ;bmp280.c: 128: }
-"128
+[e :U 3206 ]
+[; ;bmp280.c: 74: ctrl = (uint8_t)((ctrl & 0x1F) |
+[; ;bmp280.c: 75: ((osrs_t & 0x7) << 5));
+"75
+[e = _ctrl -> | & -> _ctrl `i -> 31 `i << & -> _osrs_t `i -> 7 `i -> 5 `i `uc ]
+[; ;bmp280.c: 76: i2c1_write1ByteRegister(
+[; ;bmp280.c: 77: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 78: 0xF4,
+[; ;bmp280.c: 79: ctrl);
+"79
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc _ctrl ]
+[; ;bmp280.c: 80: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"80
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3207  ]
+[; ;bmp280.c: 81: return 2;
+"81
+[e ) -> -> 2 `i `uc ]
+[e $UE 3205  ]
+[e :U 3207 ]
+[; ;bmp280.c: 83: return 0;
+"83
+[e ) -> -> 0 `i `uc ]
+[e $UE 3205  ]
+[; ;bmp280.c: 84: }
+"84
 [e :UE 3205 ]
 }
-"130
-[v _bmp280_i2c_get_mode `(uc ~T0 @X0 1 ef ]
+"86
+[v _bmp280_i2c_set_osrs_p `(uc ~T0 @X0 1 ef2`*S3196`uc ]
 {
-[; ;bmp280.c: 130: uint8_t bmp280_i2c_get_mode(void) {
-[e :U _bmp280_i2c_get_mode ]
+[; ;bmp280.c: 86: uint8_t bmp280_i2c_set_osrs_p(bmp280 *bmp, uint8_t osrs_p) {
+[e :U _bmp280_i2c_set_osrs_p ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _osrs_p `uc ~T0 @X0 1 r2 ]
 [f ]
-"131
+"87
 [v _ctrl `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 131: uint8_t ctrl;
-[; ;bmp280.c: 132: ctrl = i2c1_read1ByteRegister(
-[; ;bmp280.c: 133: 0b1110110,
-[; ;bmp280.c: 134: 0xF4);
-"134
-[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 244 `i `uc ]
-[; ;bmp280.c: 135: return (uint8_t)(ctrl & 0x03);
-"135
-[e ) -> & -> _ctrl `i -> 3 `i `uc ]
-[e $UE 3206  ]
-[; ;bmp280.c: 136: }
-"136
-[e :UE 3206 ]
+[; ;bmp280.c: 87: uint8_t ctrl;
+[; ;bmp280.c: 88: ctrl = i2c1_read1ByteRegister(
+[; ;bmp280.c: 89: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 90: 0xF4);
+"90
+[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc ]
+[; ;bmp280.c: 91: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"91
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3209  ]
+[; ;bmp280.c: 92: return 1;
+"92
+[e ) -> -> 1 `i `uc ]
+[e $UE 3208  ]
+[e :U 3209 ]
+[; ;bmp280.c: 94: ctrl = (uint8_t)((ctrl & 0xE3) |
+[; ;bmp280.c: 95: ((osrs_p & 0x7) << 2));
+"95
+[e = _ctrl -> | & -> _ctrl `i -> 227 `i << & -> _osrs_p `i -> 7 `i -> 2 `i `uc ]
+[; ;bmp280.c: 96: i2c1_write1ByteRegister(
+[; ;bmp280.c: 97: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 98: 0xF4,
+[; ;bmp280.c: 99: ctrl);
+"99
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc _ctrl ]
+[; ;bmp280.c: 100: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"100
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3210  ]
+[; ;bmp280.c: 101: return 2;
+"101
+[e ) -> -> 2 `i `uc ]
+[e $UE 3208  ]
+[e :U 3210 ]
+[; ;bmp280.c: 103: return 0;
+"103
+[e ) -> -> 0 `i `uc ]
+[e $UE 3208  ]
+[; ;bmp280.c: 104: }
+"104
+[e :UE 3208 ]
 }
-"138
-[v _bmp280_i2c_get_t_sb `(uc ~T0 @X0 1 ef ]
+"106
+[v _bmp280_i2c_set_mode `(uc ~T0 @X0 1 ef2`*S3196`uc ]
 {
-[; ;bmp280.c: 138: uint8_t bmp280_i2c_get_t_sb(void) {
-[e :U _bmp280_i2c_get_t_sb ]
+[; ;bmp280.c: 106: uint8_t bmp280_i2c_set_mode(bmp280 *bmp, uint8_t mode) {
+[e :U _bmp280_i2c_set_mode ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _mode `uc ~T0 @X0 1 r2 ]
 [f ]
-"139
+"107
+[v _ctrl `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 107: uint8_t ctrl;
+[; ;bmp280.c: 108: ctrl = i2c1_read1ByteRegister(
+[; ;bmp280.c: 109: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 110: 0xF4);
+"110
+[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc ]
+[; ;bmp280.c: 111: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"111
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3212  ]
+[; ;bmp280.c: 112: return 1;
+"112
+[e ) -> -> 1 `i `uc ]
+[e $UE 3211  ]
+[e :U 3212 ]
+[; ;bmp280.c: 114: ctrl = (uint8_t)((ctrl & 0xFC) |
+[; ;bmp280.c: 115: (mode & 0x3));
+"115
+[e = _ctrl -> | & -> _ctrl `i -> 252 `i & -> _mode `i -> 3 `i `uc ]
+[; ;bmp280.c: 116: i2c1_write1ByteRegister(
+[; ;bmp280.c: 117: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 118: 0xF4,
+[; ;bmp280.c: 119: ctrl);
+"119
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc _ctrl ]
+[; ;bmp280.c: 120: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"120
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3213  ]
+[; ;bmp280.c: 121: return 2;
+"121
+[e ) -> -> 2 `i `uc ]
+[e $UE 3211  ]
+[e :U 3213 ]
+[; ;bmp280.c: 123: return 0;
+"123
+[e ) -> -> 0 `i `uc ]
+[e $UE 3211  ]
+[; ;bmp280.c: 124: }
+"124
+[e :UE 3211 ]
+}
+"126
+[v _bmp280_i2c_set_t_sb `(uc ~T0 @X0 1 ef2`*S3196`uc ]
+{
+[; ;bmp280.c: 126: uint8_t bmp280_i2c_set_t_sb(bmp280 *bmp, uint8_t t_sb) {
+[e :U _bmp280_i2c_set_t_sb ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _t_sb `uc ~T0 @X0 1 r2 ]
+[f ]
+"127
 [v _cfg `uc ~T0 @X0 1 a ]
-[; ;bmp280.c: 139: uint8_t cfg;
-[; ;bmp280.c: 140: cfg = i2c1_read1ByteRegister(
-[; ;bmp280.c: 141: 0b1110110,
-[; ;bmp280.c: 142: 0xF5);
-"142
-[e = _cfg ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 245 `i `uc ]
-[; ;bmp280.c: 143: return (uint8_t)((cfg & 0xE0) >> 5);
+[; ;bmp280.c: 127: uint8_t cfg;
+[; ;bmp280.c: 128: cfg = i2c1_read1ByteRegister(
+[; ;bmp280.c: 129: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 130: 0xF5);
+"130
+[e = _cfg ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc ]
+[; ;bmp280.c: 131: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"131
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3215  ]
+[; ;bmp280.c: 132: return 1;
+"132
+[e ) -> -> 1 `i `uc ]
+[e $UE 3214  ]
+[e :U 3215 ]
+[; ;bmp280.c: 134: cfg = (uint8_t)((cfg & 0x1F) |
+[; ;bmp280.c: 135: ((t_sb & 0x7) << 5));
+"135
+[e = _cfg -> | & -> _cfg `i -> 31 `i << & -> _t_sb `i -> 7 `i -> 5 `i `uc ]
+[; ;bmp280.c: 136: i2c1_write1ByteRegister(
+[; ;bmp280.c: 137: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 138: 0xF5,
+[; ;bmp280.c: 139: cfg);
+"139
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc _cfg ]
+[; ;bmp280.c: 140: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"140
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3216  ]
+[; ;bmp280.c: 141: return 2;
+"141
+[e ) -> -> 2 `i `uc ]
+[e $UE 3214  ]
+[e :U 3216 ]
+[; ;bmp280.c: 143: return 0;
 "143
-[e ) -> >> & -> _cfg `i -> 224 `i -> 5 `i `uc ]
-[e $UE 3207  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 3214  ]
 [; ;bmp280.c: 144: }
 "144
-[e :UE 3207 ]
+[e :UE 3214 ]
 }
 "146
-[v _bmp280_i2c_get_filter `(uc ~T0 @X0 1 ef ]
+[v _bmp280_i2c_set_filter `(uc ~T0 @X0 1 ef2`*S3196`uc ]
 {
-[; ;bmp280.c: 146: uint8_t bmp280_i2c_get_filter(void) {
-[e :U _bmp280_i2c_get_filter ]
+[; ;bmp280.c: 146: uint8_t bmp280_i2c_set_filter(bmp280 *bmp, uint8_t filter) {
+[e :U _bmp280_i2c_set_filter ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _filter `uc ~T0 @X0 1 r2 ]
 [f ]
 "147
 [v _cfg `uc ~T0 @X0 1 a ]
 [; ;bmp280.c: 147: uint8_t cfg;
 [; ;bmp280.c: 148: cfg = i2c1_read1ByteRegister(
-[; ;bmp280.c: 149: 0b1110110,
+[; ;bmp280.c: 149: 0b1110110 | bmp->addr,
 [; ;bmp280.c: 150: 0xF5);
 "150
-[e = _cfg ( _i2c1_read1ByteRegister (2 , -> -> 118 `i `uc -> -> 245 `i `uc ]
-[; ;bmp280.c: 151: return (uint8_t)((cfg & 0x1C) >> 2);
+[e = _cfg ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc ]
+[; ;bmp280.c: 151: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "151
-[e ) -> >> & -> _cfg `i -> 28 `i -> 2 `i `uc ]
-[e $UE 3208  ]
-[; ;bmp280.c: 152: }
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3218  ]
+[; ;bmp280.c: 152: return 1;
 "152
-[e :UE 3208 ]
-}
-"154
-[v _bmp280_i2c_read_temp_i32 `(l ~T0 @X0 1 ef ]
-{
-[; ;bmp280.c: 154: int32_t bmp280_i2c_read_temp_i32(void) {
-[e :U _bmp280_i2c_read_temp_i32 ]
-[f ]
-"157
-[v _adc_T `l ~T0 @X0 1 a ]
-"158
-[v _t_read `uc ~T0 @X0 -> 3 `i a ]
-[; ;bmp280.c: 157: int32_t adc_T;
-[; ;bmp280.c: 158: uint8_t t_read[3];
-[; ;bmp280.c: 159: i2c1_readDataBlock(
-[; ;bmp280.c: 160: 0b1110110,
-[; ;bmp280.c: 161: 0xFA,
-[; ;bmp280.c: 162: (char *)t_read,
-[; ;bmp280.c: 163: 3);
+[e ) -> -> 1 `i `uc ]
+[e $UE 3217  ]
+[e :U 3218 ]
+[; ;bmp280.c: 154: cfg = (uint8_t)((cfg & 0xE3) |
+[; ;bmp280.c: 155: ((filter & 0x7) << 2));
+"155
+[e = _cfg -> | & -> _cfg `i -> 227 `i << & -> _filter `i -> 7 `i -> 2 `i `uc ]
+[; ;bmp280.c: 156: i2c1_write1ByteRegister(
+[; ;bmp280.c: 157: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 158: 0xF5,
+[; ;bmp280.c: 159: cfg);
+"159
+[e ( _i2c1_write1ByteRegister (3 , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc _cfg ]
+[; ;bmp280.c: 160: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"160
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3219  ]
+[; ;bmp280.c: 161: return 2;
+"161
+[e ) -> -> 2 `i `uc ]
+[e $UE 3217  ]
+[e :U 3219 ]
+[; ;bmp280.c: 163: return 0;
 "163
-[e ( _i2c1_readDataBlock (4 , , , -> -> 118 `i `uc -> -> 250 `i `uc &U _t_read -> -> 3 `i `uc ]
-[; ;bmp280.c: 164: adc_T = ((int32_t)t_read[0]) << 12 |
-[; ;bmp280.c: 165: ((int32_t)t_read[1]) << 4 |
-[; ;bmp280.c: 166: (t_read[2] >> 4) & 0x0F;
+[e ) -> -> 0 `i `uc ]
+[e $UE 3217  ]
+[; ;bmp280.c: 164: }
+"164
+[e :UE 3217 ]
+}
 "166
-[e = _adc_T | | << -> *U + &U _t_read * -> -> -> 0 `i `ui `ux -> -> # *U &U _t_read `ui `ux `l -> 12 `i << -> *U + &U _t_read * -> -> -> 1 `i `ui `ux -> -> # *U &U _t_read `ui `ux `l -> 4 `i -> & >> -> *U + &U _t_read * -> -> -> 2 `i `ui `ux -> -> # *U &U _t_read `ui `ux `i -> 4 `i -> 15 `i `l ]
-"168
-[v _temp1 `l ~T0 @X0 1 a ]
-"169
-[v _temp2 `l ~T0 @X0 1 a ]
+[v _bmp280_i2c_get_osrs_t `(uc ~T0 @X0 1 ef2`*S3196`*uc ]
+{
+[; ;bmp280.c: 166: uint8_t bmp280_i2c_get_osrs_t(bmp280 *bmp, uint8_t *osrs_t) {
+[e :U _bmp280_i2c_get_osrs_t ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _osrs_t `*uc ~T0 @X0 1 r2 ]
+[f ]
+"167
+[v _ctrl `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 167: uint8_t ctrl;
+[; ;bmp280.c: 168: ctrl = i2c1_read1ByteRegister(
+[; ;bmp280.c: 169: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 170: 0xF4);
 "170
-[v _temp3 `l ~T0 @X0 1 a ]
+[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc ]
+[; ;bmp280.c: 171: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "171
-[v _T `l ~T0 @X0 1 a ]
-[; ;bmp280.c: 168: int32_t temp1;
-[; ;bmp280.c: 169: int32_t temp2;
-[; ;bmp280.c: 170: int32_t temp3;
-[; ;bmp280.c: 171: int32_t T;
-[; ;bmp280.c: 172: temp1 = ((((adc_T >> 3) - ((int32_t)bmp280_calib.dig_T1 << 1))) *
-[; ;bmp280.c: 173: ((int32_t)bmp280_calib.dig_T2)) >> 11;
-"173
-[e = _temp1 >> * - >> _adc_T -> 3 `i << -> . _bmp280_calib 0 `l -> 1 `i -> . _bmp280_calib 1 `l -> 11 `i ]
-[; ;bmp280.c: 174: temp2 = (adc_T >> 4) - ((int32_t)bmp280_calib.dig_T1);
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3221  ]
+[; ;bmp280.c: 172: return 1;
+"172
+[e ) -> -> 1 `i `uc ]
+[e $UE 3220  ]
+[e :U 3221 ]
+[; ;bmp280.c: 174: *osrs_t = (uint8_t)((ctrl & 0xE0) >> 5);
 "174
-[e = _temp2 - >> _adc_T -> 4 `i -> . _bmp280_calib 0 `l ]
-[; ;bmp280.c: 175: temp3 = (((temp2 * temp2) >> 12) * ((int32_t)bmp280_calib.dig_T3)) >> 14;
+[e = *U _osrs_t -> >> & -> _ctrl `i -> 224 `i -> 5 `i `uc ]
+[; ;bmp280.c: 175: return 0;
 "175
-[e = _temp3 >> * >> * _temp2 _temp2 -> 12 `i -> . _bmp280_calib 2 `l -> 14 `i ]
-[; ;bmp280.c: 176: bmp280_t_fine = temp1 + temp3;
+[e ) -> -> 0 `i `uc ]
+[e $UE 3220  ]
+[; ;bmp280.c: 176: }
 "176
-[e = _bmp280_t_fine + _temp1 _temp3 ]
-[; ;bmp280.c: 177: T = (bmp280_t_fine * 5 + 128) >> 8;
-"177
-[e = _T >> + * _bmp280_t_fine -> -> 5 `i `l -> -> 128 `i `l -> 8 `i ]
-[; ;bmp280.c: 179: return T;
+[e :UE 3220 ]
+}
+"178
+[v _bmp280_i2c_get_osrs_p `(uc ~T0 @X0 1 ef2`*S3196`*uc ]
+{
+[; ;bmp280.c: 178: uint8_t bmp280_i2c_get_osrs_p(bmp280 *bmp, uint8_t *osrs_p) {
+[e :U _bmp280_i2c_get_osrs_p ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _osrs_p `*uc ~T0 @X0 1 r2 ]
+[f ]
 "179
-[e ) _T ]
-[e $UE 3209  ]
-[; ;bmp280.c: 180: }
-"180
-[e :UE 3209 ]
-}
+[v _ctrl `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 179: uint8_t ctrl;
+[; ;bmp280.c: 180: ctrl = i2c1_read1ByteRegister(
+[; ;bmp280.c: 181: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 182: 0xF4);
 "182
-[v _bmp280_i2c_read_press_raw `(l ~T0 @X0 1 ef ]
-{
-[; ;bmp280.c: 182: int32_t bmp280_i2c_read_press_raw(void) {
-[e :U _bmp280_i2c_read_press_raw ]
-[f ]
-"185
-[v _p_read `uc ~T0 @X0 -> 3 `i a ]
-[; ;bmp280.c: 185: uint8_t p_read[3];
-[; ;bmp280.c: 186: i2c1_readDataBlock(
-[; ;bmp280.c: 187: 0b1110110,
-[; ;bmp280.c: 188: 0xF7,
-[; ;bmp280.c: 189: (char *)p_read,
-[; ;bmp280.c: 190: 3);
-"190
-[e ( _i2c1_readDataBlock (4 , , , -> -> 118 `i `uc -> -> 247 `i `uc &U _p_read -> -> 3 `i `uc ]
-[; ;bmp280.c: 191: return ((int32_t)p_read[0]) << 12 |
-[; ;bmp280.c: 192: ((int32_t)p_read[1]) << 4 |
-[; ;bmp280.c: 193: (p_read[2] >> 4) & 0x0F;
-"193
-[e ) | | << -> *U + &U _p_read * -> -> -> 0 `i `ui `ux -> -> # *U &U _p_read `ui `ux `l -> 12 `i << -> *U + &U _p_read * -> -> -> 1 `i `ui `ux -> -> # *U &U _p_read `ui `ux `l -> 4 `i -> & >> -> *U + &U _p_read * -> -> -> 2 `i `ui `ux -> -> # *U &U _p_read `ui `ux `i -> 4 `i -> 15 `i `l ]
-[e $UE 3210  ]
-[; ;bmp280.c: 194: }
-"194
-[e :UE 3210 ]
+[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc ]
+[; ;bmp280.c: 183: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"183
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3223  ]
+[; ;bmp280.c: 184: return 1;
+"184
+[e ) -> -> 1 `i `uc ]
+[e $UE 3222  ]
+[e :U 3223 ]
+[; ;bmp280.c: 186: *osrs_p = (uint8_t)((ctrl & 0x1C) >> 2);
+"186
+[e = *U _osrs_p -> >> & -> _ctrl `i -> 28 `i -> 2 `i `uc ]
+[; ;bmp280.c: 187: return 0;
+"187
+[e ) -> -> 0 `i `uc ]
+[e $UE 3222  ]
+[; ;bmp280.c: 188: }
+"188
+[e :UE 3222 ]
 }
-"199
-[v _bmp280_i2c_read_press_i32 `(l ~T0 @X0 1 ef ]
+"190
+[v _bmp280_i2c_get_mode `(uc ~T0 @X0 1 ef2`*S3196`*uc ]
 {
-[; ;bmp280.c: 199: int32_t bmp280_i2c_read_press_i32(void) {
-[e :U _bmp280_i2c_read_press_i32 ]
+[; ;bmp280.c: 190: uint8_t bmp280_i2c_get_mode(bmp280 *bmp, uint8_t *mode) {
+[e :U _bmp280_i2c_get_mode ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _mode `*uc ~T0 @X0 1 r2 ]
 [f ]
+"191
+[v _ctrl `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 191: uint8_t ctrl;
+[; ;bmp280.c: 192: ctrl = i2c1_read1ByteRegister(
+[; ;bmp280.c: 193: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 194: 0xF4);
+"194
+[e = _ctrl ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 244 `i `uc ]
+[; ;bmp280.c: 195: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"195
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3225  ]
+[; ;bmp280.c: 196: return 1;
+"196
+[e ) -> -> 1 `i `uc ]
+[e $UE 3224  ]
+[e :U 3225 ]
+[; ;bmp280.c: 198: *mode = (uint8_t)(ctrl & 0x03);
+"198
+[e = *U _mode -> & -> _ctrl `i -> 3 `i `uc ]
+[; ;bmp280.c: 199: return 0;
+"199
+[e ) -> -> 0 `i `uc ]
+[e $UE 3224  ]
+[; ;bmp280.c: 200: }
 "200
-[v _adc_P `l ~T0 @X0 1 a ]
-[; ;bmp280.c: 200: int32_t adc_P = bmp280_i2c_read_press_raw();
-[e = _adc_P ( _bmp280_i2c_read_press_raw ..  ]
+[e :UE 3224 ]
+}
 "202
-[v _var1 `l ~T0 @X0 1 a ]
+[v _bmp280_i2c_get_t_sb `(uc ~T0 @X0 1 ef2`*S3196`*uc ]
+{
+[; ;bmp280.c: 202: uint8_t bmp280_i2c_get_t_sb(bmp280 *bmp, uint8_t *t_sb) {
+[e :U _bmp280_i2c_get_t_sb ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _t_sb `*uc ~T0 @X0 1 r2 ]
+[f ]
 "203
-[v _var2 `l ~T0 @X0 1 a ]
-"204
-[v _P `ul ~T0 @X0 1 a ]
-[; ;bmp280.c: 202: int32_t var1;
-[; ;bmp280.c: 203: int32_t var2;
-[; ;bmp280.c: 204: uint32_t P;
-[; ;bmp280.c: 205: var1 = (((int32_t)bmp280_t_fine) >> 1) - (int32_t)64000;
-"205
-[e = _var1 - >> _bmp280_t_fine -> 1 `i -> 64000 `l ]
-[; ;bmp280.c: 206: var2 = (((var1 >> 2) * (var1 >> 2)) >> 11 ) * ((int32_t)bmp280_calib.dig_P6);
+[v _cfg `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 203: uint8_t cfg;
+[; ;bmp280.c: 204: cfg = i2c1_read1ByteRegister(
+[; ;bmp280.c: 205: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 206: 0xF5);
 "206
-[e = _var2 * >> * >> _var1 -> 2 `i >> _var1 -> 2 `i -> 11 `i -> . _bmp280_calib 8 `l ]
-[; ;bmp280.c: 207: var2 = var2 + ((var1 * ((int32_t)bmp280_calib.dig_P5)) << 1);
+[e = _cfg ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc ]
+[; ;bmp280.c: 207: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "207
-[e = _var2 + _var2 << * _var1 -> . _bmp280_calib 7 `l -> 1 `i ]
-[; ;bmp280.c: 208: var2 = (var2 >> 2) + (((int32_t)bmp280_calib.dig_P4) << 16);
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3227  ]
+[; ;bmp280.c: 208: return 1;
 "208
-[e = _var2 + >> _var2 -> 2 `i << -> . _bmp280_calib 6 `l -> 16 `i ]
-[; ;bmp280.c: 209: var1 = (((bmp280_calib.dig_P3 * (((var1 >> 2) * (var1 >> 2)) >> 13 )) >> 3) +
-[; ;bmp280.c: 210: ((((int32_t)bmp280_calib.dig_P2) * var1) >> 1)) >> 18;
+[e ) -> -> 1 `i `uc ]
+[e $UE 3226  ]
+[e :U 3227 ]
+[; ;bmp280.c: 210: *t_sb = (uint8_t)((cfg & 0xE0) >> 5);
 "210
-[e = _var1 >> + >> * -> . _bmp280_calib 5 `l >> * >> _var1 -> 2 `i >> _var1 -> 2 `i -> 13 `i -> 3 `i >> * -> . _bmp280_calib 4 `l _var1 -> 1 `i -> 18 `i ]
-[; ;bmp280.c: 211: var1 = ((((32768 + var1)) * ((int32_t)bmp280_calib.dig_P1)) >> 15);
+[e = *U _t_sb -> >> & -> _cfg `i -> 224 `i -> 5 `i `uc ]
+[; ;bmp280.c: 211: return 0;
 "211
-[e = _var1 >> * + -> 32768 `l _var1 -> . _bmp280_calib 3 `l -> 15 `i ]
-[; ;bmp280.c: 214: if (var1 == 0)
+[e ) -> -> 0 `i `uc ]
+[e $UE 3226  ]
+[; ;bmp280.c: 212: }
+"212
+[e :UE 3226 ]
+}
 "214
-[e $ ! == _var1 -> -> 0 `i `l 3212  ]
-[; ;bmp280.c: 215: return 0;
+[v _bmp280_i2c_get_filter `(uc ~T0 @X0 1 ef2`*S3196`*uc ]
+{
+[; ;bmp280.c: 214: uint8_t bmp280_i2c_get_filter(bmp280 *bmp, uint8_t *filter) {
+[e :U _bmp280_i2c_get_filter ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _filter `*uc ~T0 @X0 1 r2 ]
+[f ]
 "215
-[e ) -> -> 0 `i `l ]
-[e $UE 3211  ]
-[e :U 3212 ]
-[; ;bmp280.c: 218: P = (((uint32_t)(((int32_t)1048576) - adc_P) - ((uint32_t)var2 >> 12))) * 3125;
+[v _cfg `uc ~T0 @X0 1 a ]
+[; ;bmp280.c: 215: uint8_t cfg;
+[; ;bmp280.c: 216: cfg = i2c1_read1ByteRegister(
+[; ;bmp280.c: 217: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 218: 0xF5);
 "218
-[e = _P * - -> - -> 1048576 `l _adc_P `ul >> -> _var2 `ul -> 12 `i -> -> -> 3125 `i `l `ul ]
-[; ;bmp280.c: 219: if (P < 0x80000000)
+[e = _cfg ( _i2c1_read1ByteRegister (2 , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 245 `i `uc ]
+[; ;bmp280.c: 219: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
 "219
-[e $ ! < _P -> -2147483648 `ul 3213  ]
-[; ;bmp280.c: 220: P = (P << 1) / ((uint32_t)var1);
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3229  ]
+[; ;bmp280.c: 220: return 1;
 "220
-[e = _P / << _P -> 1 `i -> _var1 `ul ]
-[e $U 3214  ]
-"221
-[e :U 3213 ]
-[; ;bmp280.c: 221: else
-[; ;bmp280.c: 222: P = (P / (uint32_t)var1) * 2;
+[e ) -> -> 1 `i `uc ]
+[e $UE 3228  ]
+[e :U 3229 ]
+[; ;bmp280.c: 222: *filter = (uint8_t)((cfg & 0x1C) >> 2);
 "222
-[e = _P * / _P -> _var1 `ul -> -> -> 2 `i `l `ul ]
-[e :U 3214 ]
-[; ;bmp280.c: 224: var1 = (((int32_t)bmp280_calib.dig_P9) *
-[; ;bmp280.c: 225: ((int32_t)(((P >> 3) * (P >> 3)) >> 13))) >> 12;
-"225
-[e = _var1 >> * -> . _bmp280_calib 11 `l -> >> * >> _P -> 3 `i >> _P -> 3 `i -> 13 `i `l -> 12 `i ]
-[; ;bmp280.c: 226: var2 = (((int32_t)(P >> 2)) * ((int32_t)bmp280_calib.dig_P8)) >> 13;
+[e = *U _filter -> >> & -> _cfg `i -> 28 `i -> 2 `i `uc ]
+[; ;bmp280.c: 223: return 0;
+"223
+[e ) -> -> 0 `i `uc ]
+[e $UE 3228  ]
+[; ;bmp280.c: 224: }
+"224
+[e :UE 3228 ]
+}
 "226
-[e = _var2 >> * -> >> _P -> 2 `i `l -> . _bmp280_calib 10 `l -> 13 `i ]
-[; ;bmp280.c: 227: P = (uint32_t)((int32_t)P + ((var1 + var2 + bmp280_calib.dig_P7) >> 4));
-"227
-[e = _P -> + -> _P `l >> + + _var1 _var2 -> . _bmp280_calib 9 `l -> 4 `i `ul ]
-[; ;bmp280.c: 229: return P;
+[v _bmp280_i2c_read_temp_i32 `(uc ~T0 @X0 1 ef2`*S3196`*l ]
+{
+[; ;bmp280.c: 226: uint8_t bmp280_i2c_read_temp_i32(bmp280 *bmp, int32_t *T) {
+[e :U _bmp280_i2c_read_temp_i32 ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _T `*l ~T0 @X0 1 r2 ]
+[f ]
 "229
-[e ) -> _P `l ]
-[e $UE 3211  ]
-[; ;bmp280.c: 230: }
+[v _adc_T `l ~T0 @X0 1 a ]
 "230
-[e :UE 3211 ]
+[v _t_read `uc ~T0 @X0 -> 3 `i a ]
+[; ;bmp280.c: 229: int32_t adc_T;
+[; ;bmp280.c: 230: uint8_t t_read[3];
+[; ;bmp280.c: 231: i2c1_readDataBlock(
+[; ;bmp280.c: 232: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 233: 0xFA,
+[; ;bmp280.c: 234: (char *)t_read,
+[; ;bmp280.c: 235: 3);
+"235
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 250 `i `uc &U _t_read -> -> 3 `i `uc ]
+[; ;bmp280.c: 236: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"236
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3231  ]
+[; ;bmp280.c: 237: return 1;
+"237
+[e ) -> -> 1 `i `uc ]
+[e $UE 3230  ]
+[e :U 3231 ]
+[; ;bmp280.c: 239: adc_T = ((int32_t)t_read[0]) << 12 |
+[; ;bmp280.c: 240: ((int32_t)t_read[1]) << 4 |
+[; ;bmp280.c: 241: (t_read[2] >> 4) & 0x0F;
+"241
+[e = _adc_T | | << -> *U + &U _t_read * -> -> -> 0 `i `ui `ux -> -> # *U &U _t_read `ui `ux `l -> 12 `i << -> *U + &U _t_read * -> -> -> 1 `i `ui `ux -> -> # *U &U _t_read `ui `ux `l -> 4 `i -> & >> -> *U + &U _t_read * -> -> -> 2 `i `ui `ux -> -> # *U &U _t_read `ui `ux `i -> 4 `i -> 15 `i `l ]
+"243
+[v _temp1 `l ~T0 @X0 1 a ]
+"244
+[v _temp2 `l ~T0 @X0 1 a ]
+"245
+[v _temp3 `l ~T0 @X0 1 a ]
+[; ;bmp280.c: 243: int32_t temp1;
+[; ;bmp280.c: 244: int32_t temp2;
+[; ;bmp280.c: 245: int32_t temp3;
+[; ;bmp280.c: 246: temp1 = ((((adc_T >> 3) - ((int32_t)bmp->calib.dig_T1 << 1))) *
+[; ;bmp280.c: 247: ((int32_t)bmp->calib.dig_T2)) >> 11;
+"247
+[e = _temp1 >> * - >> _adc_T -> 3 `i << -> . . *U _bmp 1 0 `l -> 1 `i -> . . *U _bmp 1 1 `l -> 11 `i ]
+[; ;bmp280.c: 248: temp2 = (adc_T >> 4) - ((int32_t)bmp->calib.dig_T1);
+"248
+[e = _temp2 - >> _adc_T -> 4 `i -> . . *U _bmp 1 0 `l ]
+[; ;bmp280.c: 249: temp3 = (((temp2 * temp2) >> 12) * ((int32_t)bmp->calib.dig_T3)) >> 14;
+"249
+[e = _temp3 >> * >> * _temp2 _temp2 -> 12 `i -> . . *U _bmp 1 2 `l -> 14 `i ]
+[; ;bmp280.c: 250: bmp->t_fine = temp1 + temp3;
+"250
+[e = . *U _bmp 2 + _temp1 _temp3 ]
+[; ;bmp280.c: 252: *T = (bmp->t_fine * 5 + 128) >> 8;
+"252
+[e = *U _T >> + * . *U _bmp 2 -> -> 5 `i `l -> -> 128 `i `l -> 8 `i ]
+[; ;bmp280.c: 253: return 0;
+"253
+[e ) -> -> 0 `i `uc ]
+[e $UE 3230  ]
+[; ;bmp280.c: 254: }
+"254
+[e :UE 3230 ]
+}
+"256
+[v _bmp280_i2c_read_press_raw `(uc ~T0 @X0 1 ef2`*S3196`*l ]
+{
+[; ;bmp280.c: 256: uint8_t bmp280_i2c_read_press_raw(bmp280 *bmp, int32_t *P) {
+[e :U _bmp280_i2c_read_press_raw ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _P `*l ~T0 @X0 1 r2 ]
+[f ]
+"259
+[v _p_read `uc ~T0 @X0 -> 3 `i a ]
+[; ;bmp280.c: 259: uint8_t p_read[3];
+[; ;bmp280.c: 260: i2c1_readDataBlock(
+[; ;bmp280.c: 261: 0b1110110 | bmp->addr,
+[; ;bmp280.c: 262: 0xF7,
+[; ;bmp280.c: 263: (char *)p_read,
+[; ;bmp280.c: 264: 3);
+"264
+[e ( _i2c1_readDataBlock (4 , , , -> | -> 118 `i -> . *U _bmp 0 `i `uc -> -> 247 `i `uc &U _p_read -> -> 3 `i `uc ]
+[; ;bmp280.c: 265: if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+"265
+[e $ ! == -> ( _i2c1_getLastError ..  `i -> . `E26611 1 `i 3233  ]
+[; ;bmp280.c: 266: return 1;
+"266
+[e ) -> -> 1 `i `uc ]
+[e $UE 3232  ]
+[e :U 3233 ]
+[; ;bmp280.c: 268: *P = ((int32_t)p_read[0]) << 12 |
+[; ;bmp280.c: 269: ((int32_t)p_read[1]) << 4 |
+[; ;bmp280.c: 270: (p_read[2] >> 4) & 0x0F;
+"270
+[e = *U _P | | << -> *U + &U _p_read * -> -> -> 0 `i `ui `ux -> -> # *U &U _p_read `ui `ux `l -> 12 `i << -> *U + &U _p_read * -> -> -> 1 `i `ui `ux -> -> # *U &U _p_read `ui `ux `l -> 4 `i -> & >> -> *U + &U _p_read * -> -> -> 2 `i `ui `ux -> -> # *U &U _p_read `ui `ux `i -> 4 `i -> 15 `i `l ]
+[; ;bmp280.c: 271: return 0;
+"271
+[e ) -> -> 0 `i `uc ]
+[e $UE 3232  ]
+[; ;bmp280.c: 272: }
+"272
+[e :UE 3232 ]
+}
+"277
+[v _bmp280_i2c_read_press_i32 `(uc ~T0 @X0 1 ef2`*S3196`*ul ]
+{
+[; ;bmp280.c: 277: uint8_t bmp280_i2c_read_press_i32(bmp280 *bmp, uint32_t *P) {
+[e :U _bmp280_i2c_read_press_i32 ]
+[v _bmp `*S3196 ~T0 @X0 1 r1 ]
+[v _P `*ul ~T0 @X0 1 r2 ]
+[f ]
+"278
+[v _adc_P `l ~T0 @X0 1 a ]
+[; ;bmp280.c: 278: int32_t adc_P;
+[; ;bmp280.c: 279: if (bmp280_i2c_read_press_raw(bmp, &adc_P))
+"279
+[e $ ! != -> ( _bmp280_i2c_read_press_raw (2 , _bmp &U _adc_P `i -> -> -> 0 `i `uc `i 3235  ]
+[; ;bmp280.c: 280: return 1;
+"280
+[e ) -> -> 1 `i `uc ]
+[e $UE 3234  ]
+[e :U 3235 ]
+"282
+[v _var1 `l ~T0 @X0 1 a ]
+"283
+[v _var2 `l ~T0 @X0 1 a ]
+[; ;bmp280.c: 282: int32_t var1;
+[; ;bmp280.c: 283: int32_t var2;
+[; ;bmp280.c: 284: var1 = (((int32_t)bmp->t_fine) >> 1) - (int32_t)64000;
+"284
+[e = _var1 - >> . *U _bmp 2 -> 1 `i -> 64000 `l ]
+[; ;bmp280.c: 285: var2 = (((var1 >> 2) * (var1 >> 2)) >> 11 ) * ((int32_t)bmp->calib.dig_P6);
+"285
+[e = _var2 * >> * >> _var1 -> 2 `i >> _var1 -> 2 `i -> 11 `i -> . . *U _bmp 1 8 `l ]
+[; ;bmp280.c: 286: var2 = var2 + ((var1 * ((int32_t)bmp->calib.dig_P5)) << 1);
+"286
+[e = _var2 + _var2 << * _var1 -> . . *U _bmp 1 7 `l -> 1 `i ]
+[; ;bmp280.c: 287: var2 = (var2 >> 2) + (((int32_t)bmp->calib.dig_P4) << 16);
+"287
+[e = _var2 + >> _var2 -> 2 `i << -> . . *U _bmp 1 6 `l -> 16 `i ]
+[; ;bmp280.c: 288: var1 = (((bmp->calib.dig_P3 * (((var1 >> 2) * (var1 >> 2)) >> 13 )) >> 3) +
+[; ;bmp280.c: 289: ((((int32_t)bmp->calib.dig_P2) * var1) >> 1)) >> 18;
+"289
+[e = _var1 >> + >> * -> . . *U _bmp 1 5 `l >> * >> _var1 -> 2 `i >> _var1 -> 2 `i -> 13 `i -> 3 `i >> * -> . . *U _bmp 1 4 `l _var1 -> 1 `i -> 18 `i ]
+[; ;bmp280.c: 290: var1 = ((((32768 + var1)) * ((int32_t)bmp->calib.dig_P1)) >> 15);
+"290
+[e = _var1 >> * + -> 32768 `l _var1 -> . . *U _bmp 1 3 `l -> 15 `i ]
+[; ;bmp280.c: 293: if (var1 == 0)
+"293
+[e $ ! == _var1 -> -> 0 `i `l 3236  ]
+[; ;bmp280.c: 294: return 2;
+"294
+[e ) -> -> 2 `i `uc ]
+[e $UE 3234  ]
+[e :U 3236 ]
+[; ;bmp280.c: 297: *P = (((uint32_t)(((int32_t)1048576) - adc_P) - ((uint32_t)var2 >> 12))) * 3125;
+"297
+[e = *U _P * - -> - -> 1048576 `l _adc_P `ul >> -> _var2 `ul -> 12 `i -> -> -> 3125 `i `l `ul ]
+[; ;bmp280.c: 298: if (*P < 0x80000000)
+"298
+[e $ ! < *U _P -> -2147483648 `ul 3237  ]
+[; ;bmp280.c: 299: *P = (*P << 1) / ((uint32_t)var1);
+"299
+[e = *U _P / << *U _P -> 1 `i -> _var1 `ul ]
+[e $U 3238  ]
+"300
+[e :U 3237 ]
+[; ;bmp280.c: 300: else
+[; ;bmp280.c: 301: *P = (*P / (uint32_t)var1) * 2;
+"301
+[e = *U _P * / *U _P -> _var1 `ul -> -> -> 2 `i `l `ul ]
+[e :U 3238 ]
+[; ;bmp280.c: 303: var1 = (((int32_t)bmp->calib.dig_P9) *
+[; ;bmp280.c: 304: ((int32_t)(((*P >> 3) * (*P >> 3)) >> 13))) >> 12;
+"304
+[e = _var1 >> * -> . . *U _bmp 1 11 `l -> >> * >> *U _P -> 3 `i >> *U _P -> 3 `i -> 13 `i `l -> 12 `i ]
+[; ;bmp280.c: 305: var2 = (((int32_t)(*P >> 2)) * ((int32_t)bmp->calib.dig_P8)) >> 13;
+"305
+[e = _var2 >> * -> >> *U _P -> 2 `i `l -> . . *U _bmp 1 10 `l -> 13 `i ]
+[; ;bmp280.c: 306: *P = (uint32_t)((int32_t)*P + ((var1 + var2 + bmp->calib.dig_P7) >> 4));
+"306
+[e = *U _P -> + -> *U _P `l >> + + _var1 _var2 -> . . *U _bmp 1 9 `l -> 4 `i `ul ]
+[; ;bmp280.c: 307: return 0;
+"307
+[e ) -> -> 0 `i `uc ]
+[e $UE 3234  ]
+[; ;bmp280.c: 308: }
+"308
+[e :UE 3234 ]
 }

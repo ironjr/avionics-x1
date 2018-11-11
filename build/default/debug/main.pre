@@ -32793,7 +32793,7 @@ void OSCILLATOR_Initialize(void);
 # 95
 void PMD_Initialize(void);
 
-# 53 "bmp280.h"
+# 66 "bmp280.h"
 typedef struct {
 uint16_t dig_T1;
 int16_t dig_T2;
@@ -32810,37 +32810,122 @@ int16_t dig_P8;
 int16_t dig_P9;
 } bmp280_calib_data;
 
+typedef struct {
+uint8_t addr;
+bmp280_calib_data calib;
+int32_t t_fine;
+} bmp280;
 
-bit bmp280_i2c_init(void);
-void bmp280_i2c_set_ctrl(uint8_t, uint8_t, uint8_t);
-void bmp280_i2c_set_conf(uint8_t, uint8_t);
-void bmp280_i2c_set_osrs_t(uint8_t);
-void bmp280_i2c_set_osrs_p(uint8_t);
-void bmp280_i2c_set_mode(uint8_t);
-void bmp280_i2c_set_t_sb(uint8_t);
-void bmp280_i2c_set_filter(uint8_t);
-uint8_t bmp280_i2c_get_osrs_t(void);
-uint8_t bmp280_i2c_get_osrs_p(void);
-uint8_t bmp280_i2c_get_mode(void);
-uint8_t bmp280_i2c_get_t_sb(void);
-uint8_t bmp280_i2c_get_filter(void);
-int32_t bmp280_i2c_read_temp_i32(void);
-int32_t bmp280_i2c_read_press_raw(void);
-int32_t bmp280_i2c_read_press_i32(void);
 
-# 73 "main.c"
+uint8_t bmp280_i2c_init(bmp280 *);
+uint8_t bmp280_i2c_set_ctrl(bmp280 *, uint8_t, uint8_t, uint8_t);
+uint8_t bmp280_i2c_set_conf(bmp280 *, uint8_t, uint8_t);
+uint8_t bmp280_i2c_set_osrs_t(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_osrs_p(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_mode(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_t_sb(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_filter(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_get_osrs_t(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_osrs_p(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_mode(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_t_sb(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_filter(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_read_temp_i32(bmp280 *, int32_t *);
+uint8_t bmp280_i2c_read_press_raw(bmp280 *, int32_t *);
+uint8_t bmp280_i2c_read_press_i32(bmp280 *, uint32_t *);
+
+# 181 "mpu9250.h"
+typedef struct {
+unsigned a_fchoice_b : 1;
+unsigned a_dlpf_cfg : 3;
+unsigned g_fchoice_b : 2;
+unsigned g_dlpf_cfg : 3;
+} dlpf_cfg;
+
+typedef struct {
+unsigned a_fs : 2;
+unsigned g_fs : 2;
+unsigned m_fs : 1;
+} full_scale;
+
+typedef struct {
+uint8_t cfg;
+uint8_t gyro_cfg;
+uint8_t accel_cfg;
+uint8_t accel_cfg2;
+uint8_t magneto_cntl1;
+uint8_t magneto_cntl2;
+} mpu9250_cfg;
+
+typedef struct {
+int16_t x;
+int16_t y;
+int16_t z;
+} vector3_16s;
+
+typedef struct {
+uint16_t x;
+uint16_t y;
+uint16_t z;
+} vector3_16u;
+
+typedef struct {
+vector3_16s gyro;
+uint16_t temp;
+vector3_16s accel;
+} axes6_raw;
+
+typedef struct {
+vector3_16s gyro;
+uint16_t temp;
+vector3_16s accel;
+vector3_16s magneto;
+} axes9_raw;
+
+typedef struct {
+uint8_t addr;
+full_scale scale;
+vector3_16u mag_factor;
+} mpu9250;
+
+
+uint8_t mpu9250_i2c_init(mpu9250 *, uint8_t);
+uint8_t mpu9250_i2c_config_dlpf(mpu9250 *, dlpf_cfg *);
+uint8_t mpu9250_i2c_config_fs(mpu9250 *, uint8_t);
+uint8_t mpu9250_i2c_get_fs(mpu9250 *, full_scale *, uint8_t);
+uint8_t mpu9250_i2c_update_gyro_offset(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_dump_config(mpu9250 *, mpu9250_cfg *);
+uint8_t mpu9250_i2c_read_gyro_raw(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_read_accel_raw(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *, vector3_16s *);
+uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *, axes6_raw *);
+uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *, axes9_raw *);
+
+# 14 "main.c"
 void main(void) {
 SYSTEM_Initialize();
-bmp280_i2c_init();
-bmp280_i2c_set_ctrl(0x2, 0x3, 0x3);
-bmp280_i2c_set_conf(0x0, 0x2);
 
+bmp280 bmp;
+bmp.addr = 0;
+bmp280_i2c_init(&bmp);
+bmp280_i2c_set_ctrl(&bmp, 0x2, 0x3, 0x3);
+bmp280_i2c_set_conf(&bmp, 0x0, 0x2);
+
+mpu9250 mpu;
+mpu.addr = 0;
+mpu.scale.a_fs = 0x3;
+mpu.scale.g_fs = 0x1;
+mpu.scale.m_fs = 0x1;
+mpu9250_i2c_init(&mpu, 0);
+mpu9250_i2c_config_fs(&mpu, 0);
+
+axes6_raw ax6raw;
 int32_t temp;
 int32_t press;
 while (1) {
-temp = bmp280_i2c_read_temp_i32();
-press = bmp280_i2c_read_press_i32();
-
+bmp280_i2c_read_temp_i32(&bmp, &temp);
+bmp280_i2c_read_press_i32(&bmp, &press);
+mpu9250_i2c_read_axes6_raw(&mpu, &ax6raw);
 }
 
 return;
