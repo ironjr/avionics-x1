@@ -121,7 +121,7 @@
 #define MPU9250_ZA_OFFSET_L 0x7E
 
 /* MPU9250 Chip ID */
-#define MPU9250_CHIPID 0x73
+#define MPU9250_CHIPID 0x71
 
 /* Gyro full-scale option */
 #define MPU9250_GFS_250  0x0 // +-250dps
@@ -213,15 +213,15 @@ typedef struct {
 } vector3_16u;
 
 typedef struct {
-    vector3_16s gyro;
-    uint16_t temp;
     vector3_16s accel;
+    uint16_t temp;
+    vector3_16s gyro;
 } axes6_raw;
 
 typedef struct {
-    vector3_16s gyro;
-    uint16_t temp;
     vector3_16s accel;
+    uint16_t temp;
+    vector3_16s gyro;
     vector3_16s magneto;
 } axes9_raw;
 
@@ -243,6 +243,9 @@ uint8_t mpu9250_i2c_read_accel_raw(mpu9250 *, vector3_16s *);
 uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *, vector3_16s *);
 uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *, axes6_raw *);
 uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *, axes9_raw *);
+
+/* More complicated tasks */
+uint8_t mpu9250_gyro_zeroadj(mpu9250 *, uint8_t, uint8_t);
 
 #ifdef __cplusplus
 //}

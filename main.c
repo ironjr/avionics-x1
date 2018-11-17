@@ -11,6 +11,27 @@
 #include "bmp280.h"
 #include "mpu9250.h"
 
+/*
+typedef struct {
+    float x;
+    float y;
+    float z;
+} vector3_sp;
+
+vector3_sp accel;
+vector3_sp gyro;
+*/
+
+axes6_raw ax6raw;
+
+void interrupt isr(void) {
+    if (SOSIF == 1) {
+        uint8_t temp[6];
+        SPI1_Exchange8bitBuffer(temp, sizeof(vector3_16s), (uint8_t *)&(ax6raw.accel));
+        SPI1INTF = 0;
+    }
+}
+
 void main(void) {
     SYSTEM_Initialize();
     
@@ -28,13 +49,22 @@ void main(void) {
     mpu9250_i2c_init(&mpu, 0);
     mpu9250_i2c_config_fs(&mpu, 0); // 6-axis only
     
-    axes6_raw ax6raw;
     int32_t temp;
     uint32_t press;
+    
+    mpu9250_gyro_zeroadj(&mpu, 16, 50);
+    
+    GIE = 1;
+    SPI1IE = 1;
+    
     while (1) {
         bmp280_i2c_read_temp_i32(&bmp, &temp);
         bmp280_i2c_read_press_i32(&bmp, &press);
+
+        SOSIE = 0;
         mpu9250_i2c_read_axes6_raw(&mpu, &ax6raw);
+        SPI1INTF = 0;
+        SOSIE = 1;
     }
     
     return;

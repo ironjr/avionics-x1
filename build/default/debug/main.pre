@@ -32656,10 +32656,10 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 96 "mcc_generated_files/pin_manager.h"
+# 144 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 108
+# 156
 void PIN_MANAGER_IOC(void);
 
 # 13 "D:\Software\Microchip\xc8\v1.45\include\stdint.h"
@@ -32784,13 +32784,28 @@ void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
 # 263
 void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
 
-# 69 "mcc_generated_files/mcc.h"
+# 4 "D:\Software\Microchip\xc8\v1.45\include\__size_t.h"
+typedef unsigned size_t;
+
+# 6 "D:\Software\Microchip\xc8\v1.45\include\stddef.h"
+typedef int ptrdiff_t;
+
+# 117 "mcc_generated_files/spi1.h"
+void SPI1_Initialize(void);
+
+# 152
+uint8_t SPI1_Exchange8bit(uint8_t data);
+
+# 192
+uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
+
+# 70 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 82
+# 83
 void OSCILLATOR_Initialize(void);
 
-# 95
+# 96
 void PMD_Initialize(void);
 
 # 66 "bmp280.h"
@@ -32870,15 +32885,15 @@ uint16_t z;
 } vector3_16u;
 
 typedef struct {
-vector3_16s gyro;
-uint16_t temp;
 vector3_16s accel;
+uint16_t temp;
+vector3_16s gyro;
 } axes6_raw;
 
 typedef struct {
-vector3_16s gyro;
-uint16_t temp;
 vector3_16s accel;
+uint16_t temp;
+vector3_16s gyro;
 vector3_16s magneto;
 } axes9_raw;
 
@@ -32901,7 +32916,20 @@ uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *, vector3_16s *);
 uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *, axes6_raw *);
 uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *, axes9_raw *);
 
-# 14 "main.c"
+
+uint8_t mpu9250_gyro_zeroadj(mpu9250 *, uint8_t, uint8_t);
+
+# 25 "main.c"
+axes6_raw ax6raw;
+
+void interrupt isr(void) {
+if (SOSIF == 1) {
+uint8_t temp[6];
+SPI1_Exchange8bitBuffer(temp, sizeof(vector3_16s), (uint8_t *)&(ax6raw.accel));
+SPI1INTF = 0;
+}
+}
+
 void main(void) {
 SYSTEM_Initialize();
 
@@ -32919,13 +32947,22 @@ mpu.scale.m_fs = 0x1;
 mpu9250_i2c_init(&mpu, 0);
 mpu9250_i2c_config_fs(&mpu, 0);
 
-axes6_raw ax6raw;
 int32_t temp;
-int32_t press;
+uint32_t press;
+
+mpu9250_gyro_zeroadj(&mpu, 16, 50);
+
+GIE = 1;
+SPI1IE = 1;
+
 while (1) {
 bmp280_i2c_read_temp_i32(&bmp, &temp);
 bmp280_i2c_read_press_i32(&bmp, &press);
+
+SOSIE = 0;
 mpu9250_i2c_read_axes6_raw(&mpu, &ax6raw);
+SPI1INTF = 0;
+SOSIE = 1;
 }
 
 return;

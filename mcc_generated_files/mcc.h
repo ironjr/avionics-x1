@@ -52,6 +52,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "i2c1.h"
+#include "spi1.h"
 
 
 

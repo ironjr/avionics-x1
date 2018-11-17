@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/mcc.c"
+# 1 "bmp280.c"
 
 # 26 "D:\Software\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -32656,12 +32656,6 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 144 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
-# 156
-void PIN_MANAGER_IOC(void);
-
 # 13 "D:\Software\Microchip\xc8\v1.45\include\stdint.h"
 typedef signed char int8_t;
 
@@ -32752,9 +32746,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Software\Microchip\xc8\v1.45\include\stdbool.h"
-typedef unsigned char bool;
-
 # 69 "mcc_generated_files/i2c1.h"
 typedef enum { I2C1_GOOD, I2C1_FAIL_TIMEOUT } i2c1_error;
 
@@ -32784,71 +32775,340 @@ void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
 # 263
 void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
 
-# 4 "D:\Software\Microchip\xc8\v1.45\include\__size_t.h"
-typedef unsigned size_t;
+# 66 "bmp280.h"
+typedef struct {
+uint16_t dig_T1;
+int16_t dig_T2;
+int16_t dig_T3;
 
-# 6 "D:\Software\Microchip\xc8\v1.45\include\stddef.h"
-typedef int ptrdiff_t;
+uint16_t dig_P1;
+int16_t dig_P2;
+int16_t dig_P3;
+int16_t dig_P4;
+int16_t dig_P5;
+int16_t dig_P6;
+int16_t dig_P7;
+int16_t dig_P8;
+int16_t dig_P9;
+} bmp280_calib_data;
 
-# 117 "mcc_generated_files/spi1.h"
-void SPI1_Initialize(void);
+typedef struct {
+uint8_t addr;
+bmp280_calib_data calib;
+int32_t t_fine;
+} bmp280;
 
-# 152
-uint8_t SPI1_Exchange8bit(uint8_t data);
 
-# 192
-uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
+uint8_t bmp280_i2c_init(bmp280 *);
+uint8_t bmp280_i2c_set_ctrl(bmp280 *, uint8_t, uint8_t, uint8_t);
+uint8_t bmp280_i2c_set_conf(bmp280 *, uint8_t, uint8_t);
+uint8_t bmp280_i2c_set_osrs_t(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_osrs_p(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_mode(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_t_sb(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_set_filter(bmp280 *, uint8_t);
+uint8_t bmp280_i2c_get_osrs_t(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_osrs_p(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_mode(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_t_sb(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_get_filter(bmp280 *, uint8_t *);
+uint8_t bmp280_i2c_read_temp_i32(bmp280 *, int32_t *);
+uint8_t bmp280_i2c_read_press_raw(bmp280 *, int32_t *);
+uint8_t bmp280_i2c_read_press_i32(bmp280 *, uint32_t *);
 
-# 70 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
+# 13 "bmp280.c"
+uint8_t bmp280_i2c_init(bmp280 *bmp) {
+uint8_t chip_id = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xD0);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT || chip_id != 0x58)
+return 1;
 
-# 83
-void OSCILLATOR_Initialize(void);
+i2c1_readDataBlock(
+0b1110110 | bmp->addr,
+0x88,
+(char *)(&bmp->calib),
+24);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
 
-# 96
-void PMD_Initialize(void);
-
-# 50 "mcc_generated_files/mcc.c"
-void SYSTEM_Initialize(void)
-{
-PMD_Initialize();
-PIN_MANAGER_Initialize();
-OSCILLATOR_Initialize();
-SPI1_Initialize();
-I2C1_Initialize();
+return 0;
 }
 
-void OSCILLATOR_Initialize(void)
-{
+uint8_t bmp280_i2c_set_ctrl(bmp280 *bmp, uint8_t osrs_t, uint8_t osrs_p, uint8_t mode) {
+uint8_t ctrl = (uint8_t)(((osrs_t & 0x7) << 5) |
+((osrs_p & 0x7) << 2) |
+(mode & 0x3));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4,
+ctrl);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
 
-OSCCON1 = 0x70;
-
-OSCCON3 = 0x00;
-
-OSCEN = 0x00;
-
-OSCFRQ = 0x02;
-
-OSCTUNE = 0x00;
+return 0;
 }
 
-void PMD_Initialize(void)
-{
+uint8_t bmp280_i2c_set_conf(bmp280 *bmp, uint8_t t_sb, uint8_t filter) {
+uint8_t cfg;
+cfg = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
 
-PMD0 = 0x00;
+cfg = (uint8_t)(((t_sb & 0x7) << 5) |
+((filter & 0x7) << 2) |
+(cfg & 0x3));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5,
+cfg);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
 
-PMD1 = 0x00;
+return 0;
+}
 
-PMD2 = 0x00;
+uint8_t bmp280_i2c_set_osrs_t(bmp280 *bmp, uint8_t osrs_t) {
+uint8_t ctrl;
+ctrl = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
 
-PMD3 = 0x00;
+ctrl = (uint8_t)((ctrl & 0x1F) |
+((osrs_t & 0x7) << 5));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4,
+ctrl);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
 
-PMD4 = 0x00;
+return 0;
+}
 
-PMD5 = 0x00;
+uint8_t bmp280_i2c_set_osrs_p(bmp280 *bmp, uint8_t osrs_p) {
+uint8_t ctrl;
+ctrl = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
 
-PMD6 = 0x00;
+ctrl = (uint8_t)((ctrl & 0xE3) |
+((osrs_p & 0x7) << 2));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4,
+ctrl);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
 
-PMD7 = 0x00;
+return 0;
+}
+
+uint8_t bmp280_i2c_set_mode(bmp280 *bmp, uint8_t mode) {
+uint8_t ctrl;
+ctrl = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+ctrl = (uint8_t)((ctrl & 0xFC) |
+(mode & 0x3));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4,
+ctrl);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
+
+return 0;
+}
+
+uint8_t bmp280_i2c_set_t_sb(bmp280 *bmp, uint8_t t_sb) {
+uint8_t cfg;
+cfg = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+cfg = (uint8_t)((cfg & 0x1F) |
+((t_sb & 0x7) << 5));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5,
+cfg);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
+
+return 0;
+}
+
+uint8_t bmp280_i2c_set_filter(bmp280 *bmp, uint8_t filter) {
+uint8_t cfg;
+cfg = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+cfg = (uint8_t)((cfg & 0xE3) |
+((filter & 0x7) << 2));
+i2c1_write1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5,
+cfg);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 2;
+
+return 0;
+}
+
+uint8_t bmp280_i2c_get_osrs_t(bmp280 *bmp, uint8_t *osrs_t) {
+uint8_t ctrl;
+ctrl = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+*osrs_t = (uint8_t)((ctrl & 0xE0) >> 5);
+return 0;
+}
+
+uint8_t bmp280_i2c_get_osrs_p(bmp280 *bmp, uint8_t *osrs_p) {
+uint8_t ctrl;
+ctrl = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+*osrs_p = (uint8_t)((ctrl & 0x1C) >> 2);
+return 0;
+}
+
+uint8_t bmp280_i2c_get_mode(bmp280 *bmp, uint8_t *mode) {
+uint8_t ctrl;
+ctrl = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF4);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+*mode = (uint8_t)(ctrl & 0x03);
+return 0;
+}
+
+uint8_t bmp280_i2c_get_t_sb(bmp280 *bmp, uint8_t *t_sb) {
+uint8_t cfg;
+cfg = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+*t_sb = (uint8_t)((cfg & 0xE0) >> 5);
+return 0;
+}
+
+uint8_t bmp280_i2c_get_filter(bmp280 *bmp, uint8_t *filter) {
+uint8_t cfg;
+cfg = i2c1_read1ByteRegister(
+0b1110110 | bmp->addr,
+0xF5);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+*filter = (uint8_t)((cfg & 0x1C) >> 2);
+return 0;
+}
+
+uint8_t bmp280_i2c_read_temp_i32(bmp280 *bmp, int32_t *T) {
+
+
+int32_t adc_T;
+uint8_t t_read[3];
+i2c1_readDataBlock(
+0b1110110 | bmp->addr,
+0xFA,
+(char *)t_read,
+3);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+adc_T = ((int32_t)t_read[0]) << 12 |
+((int32_t)t_read[1]) << 4 |
+(t_read[2] >> 4) & 0x0F;
+
+int32_t temp1;
+int32_t temp2;
+int32_t temp3;
+temp1 = ((((adc_T >> 3) - ((int32_t)bmp->calib.dig_T1 << 1))) *
+((int32_t)bmp->calib.dig_T2)) >> 11;
+temp2 = (adc_T >> 4) - ((int32_t)bmp->calib.dig_T1);
+temp3 = (((temp2 * temp2) >> 12) * ((int32_t)bmp->calib.dig_T3)) >> 14;
+bmp->t_fine = temp1 + temp3;
+
+*T = (bmp->t_fine * 5 + 128) >> 8;
+return 0;
+}
+
+uint8_t bmp280_i2c_read_press_raw(bmp280 *bmp, int32_t *P) {
+
+
+uint8_t p_read[3];
+i2c1_readDataBlock(
+0b1110110 | bmp->addr,
+0xF7,
+(char *)p_read,
+3);
+if (i2c1_getLastError() == I2C1_FAIL_TIMEOUT)
+return 1;
+
+*P = ((int32_t)p_read[0]) << 12 |
+((int32_t)p_read[1]) << 4 |
+(p_read[2] >> 4) & 0x0F;
+return 0;
+}
+
+# 277
+uint8_t bmp280_i2c_read_press_i32(bmp280 *bmp, uint32_t *P) {
+int32_t adc_P;
+if (bmp280_i2c_read_press_raw(bmp, &adc_P))
+return 1;
+
+int32_t var1;
+int32_t var2;
+var1 = (((int32_t)bmp->t_fine) >> 1) - (int32_t)64000;
+var2 = (((var1 >> 2) * (var1 >> 2)) >> 11 ) * ((int32_t)bmp->calib.dig_P6);
+var2 = var2 + ((var1 * ((int32_t)bmp->calib.dig_P5)) << 1);
+var2 = (var2 >> 2) + (((int32_t)bmp->calib.dig_P4) << 16);
+var1 = (((bmp->calib.dig_P3 * (((var1 >> 2) * (var1 >> 2)) >> 13 )) >> 3) +
+((((int32_t)bmp->calib.dig_P2) * var1) >> 1)) >> 18;
+var1 = ((((32768 + var1)) * ((int32_t)bmp->calib.dig_P1)) >> 15);
+
+
+if (var1 == 0)
+return 2;
+
+
+*P = (((uint32_t)(((int32_t)1048576) - adc_P) - ((uint32_t)var2 >> 12))) * 3125;
+if (*P < 0x80000000)
+*P = (*P << 1) / ((uint32_t)var1);
+else
+*P = (*P / (uint32_t)var1) * 2;
+
+var1 = (((int32_t)bmp->calib.dig_P9) *
+((int32_t)(((*P >> 3) * (*P >> 3)) >> 13))) >> 12;
+var2 = (((int32_t)(*P >> 2)) * ((int32_t)bmp->calib.dig_P8)) >> 13;
+*P = (uint32_t)((int32_t)*P + ((var1 + var2 + bmp->calib.dig_P7) >> 4));
+return 0;
 }
 

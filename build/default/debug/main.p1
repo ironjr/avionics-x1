@@ -1,6 +1,18 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"203 mpu9250.h
+[s S3200 `i 1 `i 1 `i 1 ]
+[n S3200 . x y z ]
+"215
+[s S3202 `S3200 1 `ui 1 `S3200 1 ]
+[n S3202 . accel temp gyro ]
+"13201 D:\Software\Microchip\xc8\v1.45\include\pic18f26k83.h
+[v _SOSIF `Vb ~T0 @X0 0 e@125141 ]
+"192 mcc_generated_files/spi1.h
+[v _SPI1_Exchange8bitBuffer `(uc ~T0 @X0 0 ef3`*uc`uc`*uc ]
+"43543 D:\Software\Microchip\xc8\v1.45\include\pic18f26k83.h
+[v _SPI1INTF `Vuc ~T0 @X0 0 e@15642 ]
 [p mainexit ]
-"69 mcc_generated_files/mcc.h
+"70 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
 "66 bmp280.h
 [s S3195 `ui 1 `i 1 `i 1 `ui 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 ]
@@ -27,16 +39,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _mpu9250_i2c_init `(uc ~T0 @X0 0 ef2`*S3204`uc ]
 "237
 [v _mpu9250_i2c_config_fs `(uc ~T0 @X0 0 ef2`*S3204`uc ]
-"203
-[s S3200 `i 1 `i 1 `i 1 ]
-[n S3200 . x y z ]
-"215
-[s S3202 `S3200 1 `ui 1 `S3200 1 ]
-[n S3202 . gyro temp accel ]
+"248
+[v _mpu9250_gyro_zeroadj `(uc ~T0 @X0 0 ef3`*S3204`uc`uc ]
+"9741 D:\Software\Microchip\xc8\v1.45\include\pic18f26k83.h
+[v _GIE `Vb ~T0 @X0 0 e@130711 ]
+"13235
+[v _SPI1IE `Vb ~T0 @X0 0 e@117910 ]
 "102 bmp280.h
 [v _bmp280_i2c_read_temp_i32 `(uc ~T0 @X0 0 ef2`*S3196`*l ]
 "104
 [v _bmp280_i2c_read_press_i32 `(uc ~T0 @X0 0 ef2`*S3196`*ul ]
+"13199 D:\Software\Microchip\xc8\v1.45\include\pic18f26k83.h
+[v _SOSIE `Vb ~T0 @X0 0 e@125149 ]
 "244 mpu9250.h
 [v _mpu9250_i2c_read_axes6_raw `(uc ~T0 @X0 0 ef2`*S3204`*S3202 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -25374,8 +25388,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;pin_manager.h: 96: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 108: void PIN_MANAGER_IOC(void);
+[; ;pin_manager.h: 144: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 156: void PIN_MANAGER_IOC(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -25415,9 +25429,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 214: uint16_t i2c1_read2ByteRegister(uint8_t address, uint8_t reg);
 [; ;i2c1.h: 238: void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
 [; ;i2c1.h: 263: void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
-[; ;mcc.h: 69: void SYSTEM_Initialize(void);
-[; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 95: void PMD_Initialize(void);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stddef.h: 6: typedef int ptrdiff_t;
+[; ;spi1.h: 117: void SPI1_Initialize(void);
+[; ;spi1.h: 152: uint8_t SPI1_Exchange8bit(uint8_t data);
+[; ;spi1.h: 192: uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
+[; ;mcc.h: 70: void SYSTEM_Initialize(void);
+[; ;mcc.h: 83: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 96: void PMD_Initialize(void);
 [; ;bmp280.h: 66: typedef struct {
 [; ;bmp280.h: 67: uint16_t dig_T1;
 [; ;bmp280.h: 68: int16_t dig_T2;
@@ -25483,14 +25502,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpu9250.h: 212: uint16_t z;
 [; ;mpu9250.h: 213: } vector3_16u;
 [; ;mpu9250.h: 215: typedef struct {
-[; ;mpu9250.h: 216: vector3_16s gyro;
+[; ;mpu9250.h: 216: vector3_16s accel;
 [; ;mpu9250.h: 217: uint16_t temp;
-[; ;mpu9250.h: 218: vector3_16s accel;
+[; ;mpu9250.h: 218: vector3_16s gyro;
 [; ;mpu9250.h: 219: } axes6_raw;
 [; ;mpu9250.h: 221: typedef struct {
-[; ;mpu9250.h: 222: vector3_16s gyro;
+[; ;mpu9250.h: 222: vector3_16s accel;
 [; ;mpu9250.h: 223: uint16_t temp;
-[; ;mpu9250.h: 224: vector3_16s accel;
+[; ;mpu9250.h: 224: vector3_16s gyro;
 [; ;mpu9250.h: 225: vector3_16s magneto;
 [; ;mpu9250.h: 226: } axes9_raw;
 [; ;mpu9250.h: 228: typedef struct {
@@ -25509,85 +25528,133 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpu9250.h: 243: uint8_t mpu9250_i2c_read_magneto_raw(mpu9250 *, vector3_16s *);
 [; ;mpu9250.h: 244: uint8_t mpu9250_i2c_read_axes6_raw(mpu9250 *, axes6_raw *);
 [; ;mpu9250.h: 245: uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *, axes9_raw *);
-[v $root$_main `(v ~T0 @X0 0 e ]
-"14 main.c
-[v _main `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 14: void main(void) {
-[e :U _main ]
-[f ]
-[; ;main.c: 15: SYSTEM_Initialize();
-"15
-[e ( _SYSTEM_Initialize ..  ]
-"17
-[v _bmp `S3196 ~T0 @X0 1 a ]
-[; ;main.c: 17: bmp280 bmp;
-[; ;main.c: 18: bmp.addr = 0;
-"18
-[e = . _bmp 0 -> -> 0 `i `uc ]
-[; ;main.c: 19: bmp280_i2c_init(&bmp);
-"19
-[e ( _bmp280_i2c_init (1 &U _bmp ]
-[; ;main.c: 20: bmp280_i2c_set_ctrl(&bmp, 0x2, 0x3, 0x3);
-"20
-[e ( _bmp280_i2c_set_ctrl (4 , , , &U _bmp -> -> 2 `i `uc -> -> 3 `i `uc -> -> 3 `i `uc ]
-[; ;main.c: 21: bmp280_i2c_set_conf(&bmp, 0x0, 0x2);
-"21
-[e ( _bmp280_i2c_set_conf (3 , , &U _bmp -> -> 0 `i `uc -> -> 2 `i `uc ]
-"23
-[v _mpu `S3204 ~T0 @X0 1 a ]
-[; ;main.c: 23: mpu9250 mpu;
-[; ;main.c: 24: mpu.addr = 0;
-"24
-[e = . _mpu 0 -> -> 0 `i `uc ]
-[; ;main.c: 25: mpu.scale.a_fs = 0x3;
-"25
-[e = . . _mpu 1 0 -> -> 3 `i `uc ]
-[; ;main.c: 26: mpu.scale.g_fs = 0x1;
-"26
-[e = . . _mpu 1 1 -> -> 1 `i `uc ]
-[; ;main.c: 27: mpu.scale.m_fs = 0x1;
+[; ;mpu9250.h: 248: uint8_t mpu9250_gyro_zeroadj(mpu9250 *, uint8_t, uint8_t);
+"25 main.c
+[v _ax6raw `S3202 ~T0 @X0 1 e ]
+[; ;main.c: 25: axes6_raw ax6raw;
+[v $root$_isr `(v ~T0 @X0 0 e ]
+[v F26822 `(v ~T0 @X0 1 tf ]
 "27
-[e = . . _mpu 1 2 -> -> 1 `i `uc ]
-[; ;main.c: 28: mpu9250_i2c_init(&mpu, 0);
-"28
-[e ( _mpu9250_i2c_init (2 , &U _mpu -> -> 0 `i `uc ]
-[; ;main.c: 29: mpu9250_i2c_config_fs(&mpu, 0);
-"29
-[e ( _mpu9250_i2c_config_fs (2 , &U _mpu -> -> 0 `i `uc ]
-"31
-[v _ax6raw `S3202 ~T0 @X0 1 a ]
-"32
-[v _temp `l ~T0 @X0 1 a ]
-"33
-[v _press `l ~T0 @X0 1 a ]
-[; ;main.c: 31: axes6_raw ax6raw;
-[; ;main.c: 32: int32_t temp;
-[; ;main.c: 33: int32_t press;
-[; ;main.c: 34: while (1) {
-"34
-[e :U 3207 ]
+[v _isr `IF26822 ~T0 @X0 1 e ]
 {
-[; ;main.c: 35: bmp280_i2c_read_temp_i32(&bmp, &temp);
-"35
-[e ( _bmp280_i2c_read_temp_i32 (2 , &U _bmp &U _temp ]
-[; ;main.c: 36: bmp280_i2c_read_press_i32(&bmp, &press);
-"36
-[e ( _bmp280_i2c_read_press_i32 (2 , &U _bmp -> &U _press `*ul ]
-[; ;main.c: 37: mpu9250_i2c_read_axes6_raw(&mpu, &ax6raw);
-"37
-[e ( _mpu9250_i2c_read_axes6_raw (2 , &U _mpu &U _ax6raw ]
-"38
+[; ;main.c: 27: void interrupt isr(void) {
+[e :U _isr ]
+[f ]
+[; ;main.c: 28: if (SOSIF == 1) {
+"28
+[e $ ! == -> _SOSIF `i -> 1 `i 3206  ]
+{
+"29
+[v _temp `uc ~T0 @X0 -> 6 `i a ]
+[; ;main.c: 29: uint8_t temp[6];
+[; ;main.c: 30: SPI1_Exchange8bitBuffer(temp, sizeof(vector3_16s), (uint8_t *)&(ax6raw.accel));
+"30
+[e ( _SPI1_Exchange8bitBuffer (3 , , &U _temp -> -> # `S3200 `ui `uc -> &U . _ax6raw 0 `*uc ]
+[; ;main.c: 31: SPI1INTF = 0;
+"31
+[e = _SPI1INTF -> -> 0 `i `uc ]
+"32
 }
 [e :U 3206 ]
-"34
-[e $U 3207  ]
-[e :U 3208 ]
-[; ;main.c: 38: }
-[; ;main.c: 40: return;
-"40
-[e $UE 3205  ]
-[; ;main.c: 41: }
-"41
+[; ;main.c: 32: }
+[; ;main.c: 33: }
+"33
 [e :UE 3205 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"35
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 35: void main(void) {
+[e :U _main ]
+[f ]
+[; ;main.c: 36: SYSTEM_Initialize();
+"36
+[e ( _SYSTEM_Initialize ..  ]
+"38
+[v _bmp `S3196 ~T0 @X0 1 a ]
+[; ;main.c: 38: bmp280 bmp;
+[; ;main.c: 39: bmp.addr = 0;
+"39
+[e = . _bmp 0 -> -> 0 `i `uc ]
+[; ;main.c: 40: bmp280_i2c_init(&bmp);
+"40
+[e ( _bmp280_i2c_init (1 &U _bmp ]
+[; ;main.c: 41: bmp280_i2c_set_ctrl(&bmp, 0x2, 0x3, 0x3);
+"41
+[e ( _bmp280_i2c_set_ctrl (4 , , , &U _bmp -> -> 2 `i `uc -> -> 3 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 42: bmp280_i2c_set_conf(&bmp, 0x0, 0x2);
+"42
+[e ( _bmp280_i2c_set_conf (3 , , &U _bmp -> -> 0 `i `uc -> -> 2 `i `uc ]
+"44
+[v _mpu `S3204 ~T0 @X0 1 a ]
+[; ;main.c: 44: mpu9250 mpu;
+[; ;main.c: 45: mpu.addr = 0;
+"45
+[e = . _mpu 0 -> -> 0 `i `uc ]
+[; ;main.c: 46: mpu.scale.a_fs = 0x3;
+"46
+[e = . . _mpu 1 0 -> -> 3 `i `uc ]
+[; ;main.c: 47: mpu.scale.g_fs = 0x1;
+"47
+[e = . . _mpu 1 1 -> -> 1 `i `uc ]
+[; ;main.c: 48: mpu.scale.m_fs = 0x1;
+"48
+[e = . . _mpu 1 2 -> -> 1 `i `uc ]
+[; ;main.c: 49: mpu9250_i2c_init(&mpu, 0);
+"49
+[e ( _mpu9250_i2c_init (2 , &U _mpu -> -> 0 `i `uc ]
+[; ;main.c: 50: mpu9250_i2c_config_fs(&mpu, 0);
+"50
+[e ( _mpu9250_i2c_config_fs (2 , &U _mpu -> -> 0 `i `uc ]
+"52
+[v _temp `l ~T0 @X0 1 a ]
+"53
+[v _press `ul ~T0 @X0 1 a ]
+[; ;main.c: 52: int32_t temp;
+[; ;main.c: 53: uint32_t press;
+[; ;main.c: 55: mpu9250_gyro_zeroadj(&mpu, 16, 50);
+"55
+[e ( _mpu9250_gyro_zeroadj (3 , , &U _mpu -> -> 16 `i `uc -> -> 50 `i `uc ]
+[; ;main.c: 57: GIE = 1;
+"57
+[e = _GIE -> -> 1 `i `b ]
+[; ;main.c: 58: SPI1IE = 1;
+"58
+[e = _SPI1IE -> -> 1 `i `b ]
+[; ;main.c: 60: while (1) {
+"60
+[e :U 3209 ]
+{
+[; ;main.c: 61: bmp280_i2c_read_temp_i32(&bmp, &temp);
+"61
+[e ( _bmp280_i2c_read_temp_i32 (2 , &U _bmp &U _temp ]
+[; ;main.c: 62: bmp280_i2c_read_press_i32(&bmp, &press);
+"62
+[e ( _bmp280_i2c_read_press_i32 (2 , &U _bmp &U _press ]
+[; ;main.c: 64: SOSIE = 0;
+"64
+[e = _SOSIE -> -> 0 `i `b ]
+[; ;main.c: 65: mpu9250_i2c_read_axes6_raw(&mpu, &ax6raw);
+"65
+[e ( _mpu9250_i2c_read_axes6_raw (2 , &U _mpu &U _ax6raw ]
+[; ;main.c: 66: SPI1INTF = 0;
+"66
+[e = _SPI1INTF -> -> 0 `i `uc ]
+[; ;main.c: 67: SOSIE = 1;
+"67
+[e = _SOSIE -> -> 1 `i `b ]
+"68
+}
+[e :U 3208 ]
+"60
+[e $U 3209  ]
+[e :U 3210 ]
+[; ;main.c: 68: }
+[; ;main.c: 70: return;
+"70
+[e $UE 3207  ]
+[; ;main.c: 71: }
+"71
+[e :UE 3207 ]
 }

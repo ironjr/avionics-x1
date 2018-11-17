@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/Development/MPLABXProjects/Avionics.X/bmp280.h</file>
             <file>file:/D:/Development/MPLABXProjects/Avionics.X/mpu9250.h</file>
+            <file>file:/D:/Development/MPLABXProjects/Avionics.X/mcc_generated_files/spi1.c</file>
             <file>file:/D:/Development/MPLABXProjects/Avionics.X/main.c</file>
             <file>file:/D:/Development/MPLABXProjects/Avionics.X/mpu9250.c</file>
             <file>file:/D:/Development/MPLABXProjects/Avionics.X/bmp280.c</file>

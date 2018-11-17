@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/mcc.c"
+# 1 "mcc_generated_files/spi1.c"
 
 # 26 "D:\Software\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -32656,11 +32656,14 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 144 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
+# 12 "D:\Software\Microchip\xc8\v1.45\include\stdbool.h"
+typedef unsigned char bool;
 
-# 156
-void PIN_MANAGER_IOC(void);
+# 4 "D:\Software\Microchip\xc8\v1.45\include\__size_t.h"
+typedef unsigned size_t;
+
+# 6 "D:\Software\Microchip\xc8\v1.45\include\stddef.h"
+typedef int ptrdiff_t;
 
 # 13 "D:\Software\Microchip\xc8\v1.45\include\stdint.h"
 typedef signed char int8_t;
@@ -32752,44 +32755,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Software\Microchip\xc8\v1.45\include\stdbool.h"
-typedef unsigned char bool;
-
-# 69 "mcc_generated_files/i2c1.h"
-typedef enum { I2C1_GOOD, I2C1_FAIL_TIMEOUT } i2c1_error;
-
-# 96
-void I2C1_Initialize(void);
-
-i2c1_error i2c1_getLastError(void);
-
-# 122
-void i2c1_write1ByteRegister(uint8_t address, uint8_t reg, uint8_t data);
-
-# 146
-void i2c1_write2ByteRegister(uint8_t address, uint8_t reg, uint16_t data);
-
-# 171
-void i2c1_writeNBytes(uint8_t address, void * data, uint8_t len);
-
-# 193
-uint8_t i2c1_read1ByteRegister(uint8_t address, uint8_t reg);
-
-# 214
-uint16_t i2c1_read2ByteRegister(uint8_t address, uint8_t reg);
-
-# 238
-void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
-
-# 263
-void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
-
-# 4 "D:\Software\Microchip\xc8\v1.45\include\__size_t.h"
-typedef unsigned size_t;
-
-# 6 "D:\Software\Microchip\xc8\v1.45\include\stddef.h"
-typedef int ptrdiff_t;
-
 # 117 "mcc_generated_files/spi1.h"
 void SPI1_Initialize(void);
 
@@ -32799,56 +32764,67 @@ uint8_t SPI1_Exchange8bit(uint8_t data);
 # 192
 uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
 
-# 70 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 83
-void OSCILLATOR_Initialize(void);
-
-# 96
-void PMD_Initialize(void);
-
-# 50 "mcc_generated_files/mcc.c"
-void SYSTEM_Initialize(void)
+# 64 "mcc_generated_files/spi1.c"
+void SPI1_Initialize(void)
 {
-PMD_Initialize();
-PIN_MANAGER_Initialize();
-OSCILLATOR_Initialize();
-SPI1_Initialize();
-I2C1_Initialize();
+
+
+SPI1CON1 = 0x04;
+
+SPI1CON2 = 0x03;
+
+SPI1CON0 = 0x80;
 }
 
-void OSCILLATOR_Initialize(void)
+uint8_t SPI1_Exchange8bit(uint8_t data)
 {
 
-OSCCON1 = 0x70;
+SPI1TCNTL = 1;
+SPI1TXB = data;
 
-OSCCON3 = 0x00;
-
-OSCEN = 0x00;
-
-OSCFRQ = 0x02;
-
-OSCTUNE = 0x00;
+while(PIR2bits.SPI1RXIF == 0x0)
+{
 }
 
-void PMD_Initialize(void)
+return (SPI1RXB);
+}
+
+uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
 {
+uint8_t bytesWritten = 0;
+uint8_t dummyRead;
 
-PMD0 = 0x00;
+if(bufLen != 0)
+{
+if(dataIn != (0))
+{
+while(bytesWritten < bufLen)
+{
+if(dataOut == (0))
+{
+dummyRead = SPI1_Exchange8bit(dataIn[bytesWritten]);
+}
+else
+{
+dataOut[bytesWritten] = SPI1_Exchange8bit(dataIn[bytesWritten]);
+}
 
-PMD1 = 0x00;
+bytesWritten++;
+}
+}
+else
+{
+if(dataOut != (0))
+{
+while(bytesWritten < bufLen )
+{
+dataOut[bytesWritten] = SPI1_Exchange8bit(0x0);
+bytesWritten++;
+}
+}
+}
+}
 
-PMD2 = 0x00;
-
-PMD3 = 0x00;
-
-PMD4 = 0x00;
-
-PMD5 = 0x00;
-
-PMD6 = 0x00;
-
-PMD7 = 0x00;
+return bytesWritten;
 }
 

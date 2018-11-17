@@ -384,8 +384,53 @@ uint8_t mpu9250_i2c_read_axes9_raw(mpu9250 *mpu, axes9_raw *data) {
     uint8_t err;
     if (err = mpu9250_i2c_read_axes6_raw(mpu, (axes6_raw *)data))
         return err;
-    if (err = mpu9250_i2c_read_magneto_raw(mpu, &(data->magneto)))
+    err = 0x10;
+    if (err |= mpu9250_i2c_read_magneto_raw(mpu, &(data->magneto)))
         return err;
     
+    return 0;
+}
+
+/*
+ * mpu9250_gyro_zeroadj
+ * Do a null adjustment for gyroscope in mpu9250.
+ * Be sure to give sufficiently large tries.
+ */
+uint8_t mpu9250_gyro_zeroadj(mpu9250 *mpu, uint8_t reads, uint8_t interval) {
+    uint8_t failures = 0;
+    vector3_16s gyro_read;
+    vector3_16s gyro_sum; /* Assume no overflow ... if it happens your chip should be thrown away */
+    gyro_sum.x = gyro_sum.y = gyro_sum.z = 0;
+    for (uint8_t i = 1; i <= reads; ++i) {
+        if (mpu9250_i2c_read_gyro_raw(mpu, &gyro_read)) {
+            /* Do a try again. */
+            if (++failures == 0xFF) {
+                /* Give up. */
+                return 1;
+            }
+            --i;
+            continue;
+        }
+        gyro_sum.x += gyro_read.x;
+        gyro_sum.y += gyro_read.y;
+        gyro_sum.z += gyro_read.z;
+        
+        /* Wait for next read */
+        __delay_ms(50);
+    }
+    
+    gyro_sum.x = ((gyro_sum.x << 2) / reads) >> mpu->scale.g_fs;
+    gyro_sum.y = ((gyro_sum.y << 2) / reads) >> mpu->scale.g_fs;
+    gyro_sum.z = ((gyro_sum.z << 2) / reads) >> mpu->scale.g_fs;
+    
+    failures = 0;
+    while (mpu9250_i2c_update_gyro_offset(mpu, &gyro_sum)) {
+        if (++failures == 0xFF) {
+            /* Give up. */
+            return 1;
+        }
+    }
+    
+    /* Success! */
     return 0;
 }

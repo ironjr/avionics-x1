@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/mcc.c"
+# 1 "mcc_generated_files/i2c1.c"
 
 # 26 "D:\Software\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -32656,11 +32656,8 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 144 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
-# 156
-void PIN_MANAGER_IOC(void);
+# 12 "D:\Software\Microchip\xc8\v1.45\include\stdbool.h"
+typedef unsigned char bool;
 
 # 13 "D:\Software\Microchip\xc8\v1.45\include\stdint.h"
 typedef signed char int8_t;
@@ -32752,9 +32749,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Software\Microchip\xc8\v1.45\include\stdbool.h"
-typedef unsigned char bool;
-
 # 69 "mcc_generated_files/i2c1.h"
 typedef enum { I2C1_GOOD, I2C1_FAIL_TIMEOUT } i2c1_error;
 
@@ -32784,71 +32778,280 @@ void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len);
 # 263
 void i2c1_readNBytes(uint8_t address, char* data, uint8_t len);
 
-# 4 "D:\Software\Microchip\xc8\v1.45\include\__size_t.h"
-typedef unsigned size_t;
+# 55 "mcc_generated_files/i2c1.c"
+static i2c1_error lastError = I2C1_GOOD;
 
-# 6 "D:\Software\Microchip\xc8\v1.45\include\stddef.h"
-typedef int ptrdiff_t;
-
-# 117 "mcc_generated_files/spi1.h"
-void SPI1_Initialize(void);
-
-# 152
-uint8_t SPI1_Exchange8bit(uint8_t data);
-
-# 192
-uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
-
-# 70 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 83
-void OSCILLATOR_Initialize(void);
-
-# 96
-void PMD_Initialize(void);
-
-# 50 "mcc_generated_files/mcc.c"
-void SYSTEM_Initialize(void)
+void I2C1_Initialize(void)
 {
-PMD_Initialize();
-PIN_MANAGER_Initialize();
-OSCILLATOR_Initialize();
-SPI1_Initialize();
+if(!I2C1CON0bits.EN || lastError != I2C1_GOOD)
+{
+lastError = I2C1_GOOD;
+
+I2C1CON1 = 0x80;
+
+I2C1CON2 = 0x00;
+
+I2C1CLK = 0x00;
+
+I2C1CON0 = 0x84;
+I2C1PIR = 0;
+I2C1ERR = 0;
+}
+}
+
+i2c1_error i2c1_getLastError(void)
+{
+return lastError;
+}
+
+static inline void wait4Start(void)
+{
+uint8_t waitCount = 255;
+if(lastError == I2C1_GOOD)
+{
+while(--waitCount)
+{
+if(!I2C1CON0bits.S)
+{
+return;
+}
+else
+{
+_delay((unsigned long)((1)*(1000000/4000000.0)));
+}
+}
+lastError = I2C1_FAIL_TIMEOUT;
+}
+}
+
+static inline void wait4BusFree(void)
+{
+uint8_t waitCount = 255;
+if(lastError == I2C1_GOOD)
+{
+while(--waitCount)
+{
+if(I2C1STAT0bits.BFRE)
+{
+return;
+}
+else
+{
+_delay((unsigned long)((1)*(1000000/4000000.0)));
+}
+}
+lastError = I2C1_FAIL_TIMEOUT;
+}
+}
+
+static inline void sendByte(uint8_t data)
+{
+uint8_t delayCounter = 255;
+if(lastError == I2C1_GOOD)
+{
+while(--delayCounter)
+{
+if(I2C1STAT1bits.TXBE)
+{
+I2C1TXB = data;
+return;
+}
+else
+{
+_delay((unsigned long)((1)*(1000000/4000000.0)));
+}
+}
+lastError = I2C1_FAIL_TIMEOUT;
+}
+}
+
+static inline uint8_t receiveByte(void)
+{
+uint8_t delayCounter = 255;
+if(lastError == I2C1_GOOD)
+{
+while(--delayCounter)
+{
+if(I2C1STAT1bits.RXBF)
+{
+return I2C1RXB;
+}
+else
+{
+_delay((unsigned long)((1)*(1000000/4000000.0)));
+}
+}
+lastError = I2C1_FAIL_TIMEOUT;
+}
+return 0;
+}
+
+static inline void wait4Stop(void)
+{
+uint8_t waitCount = 255;
+if(lastError == I2C1_GOOD)
+{
+while(--waitCount)
+{
+if(I2C1PIRbits.PCIF)
+{
+return;
+}
+else
+{
+_delay((unsigned long)((1)*(1000000/4000000.0)));
+}
+}
+lastError = I2C1_FAIL_TIMEOUT;
+}
+}
+
+static inline void wait4MDRSetcount(uint8_t count)
+{
+uint8_t waitCount = 255;
+if(lastError == I2C1_GOOD)
+{
+while(--waitCount)
+{
+if(I2C1CON0bits.MDR)
+{
+I2C1CNT = count;
+return;
+}
+else
+{
+_delay((unsigned long)((1)*(1000000/4000000.0)));
+}
+}
+lastError = I2C1_FAIL_TIMEOUT;
+}
+}
+
+void i2c1_write1ByteRegister(uint8_t address, uint8_t reg, uint8_t data)
+{
 I2C1_Initialize();
+I2C1ADB1 = (uint8_t)(address<<1);
+wait4BusFree();
+I2C1CNT = 2;
+I2C1CON0bits.S = 1;
+wait4Start();
+sendByte(reg);
+sendByte(data);
+wait4Stop();
 }
 
-void OSCILLATOR_Initialize(void)
+void i2c1_write2ByteRegister(uint8_t address, uint8_t reg, uint16_t data)
 {
-
-OSCCON1 = 0x70;
-
-OSCCON3 = 0x00;
-
-OSCEN = 0x00;
-
-OSCFRQ = 0x02;
-
-OSCTUNE = 0x00;
+I2C1_Initialize();
+I2C1ADB1 = (uint8_t)(address<<1);
+wait4BusFree();
+I2C1CNT = 3;
+I2C1CON0bits.S = 1;
+wait4Start();
+sendByte(reg);
+sendByte(data>>8);
+sendByte(data & 0x00FF);
+wait4Stop();
 }
 
-void PMD_Initialize(void)
+void i2c1_writeNBytes(uint8_t address, void* data, uint8_t len)
 {
+uint8_t *dataPointer = data;
 
-PMD0 = 0x00;
-
-PMD1 = 0x00;
-
-PMD2 = 0x00;
-
-PMD3 = 0x00;
-
-PMD4 = 0x00;
-
-PMD5 = 0x00;
-
-PMD6 = 0x00;
-
-PMD7 = 0x00;
+I2C1_Initialize();
+I2C1ADB1 = (uint8_t)(address<<1);
+wait4BusFree();
+I2C1CNT = len;
+I2C1CON0bits.S = 1;
+wait4Start();
+while(len--)
+{
+sendByte(*dataPointer++);
+}
+wait4Stop();
 }
 
+uint8_t i2c1_read1ByteRegister(uint8_t address, uint8_t reg)
+{
+uint8_t result;
+
+I2C1_Initialize();
+I2C1ADB1 = (uint8_t)(address<<1);
+wait4BusFree();
+I2C1CNT = 1;
+I2C1CON0bits.RSEN = 1;
+I2C1CON0bits.S = 1;
+wait4Start();
+sendByte(reg);
+wait4MDRSetcount(1);
+address = (uint8_t)(address<<1);
+I2C1ADB1 = (uint8_t)(address| 0x01);
+I2C1CON0bits.S = 1;
+I2C1CON0bits.RSEN = 0;
+result = receiveByte();
+wait4Stop();
+return result;
+}
+
+
+uint16_t i2c1_read2ByteRegister(uint8_t address, uint8_t reg)
+{
+uint16_t result;
+
+I2C1_Initialize();
+I2C1ADB1 = (uint8_t)(address<<1);
+wait4BusFree();
+I2C1CNT = 1;
+I2C1CON0bits.RSEN = 1;
+I2C1CON0bits.S = 1;
+wait4Start();
+sendByte(reg);
+wait4MDRSetcount(2);
+address = (uint8_t)(address<<1);
+I2C1ADB1 = (uint8_t)(address| 0x01);
+I2C1CON0bits.S = 1;
+I2C1CON0bits.RSEN = 0;
+result = receiveByte();
+result = result<<8;
+result = result | receiveByte();
+wait4Stop();
+return result;
+}
+
+void i2c1_readDataBlock(uint8_t address, uint8_t reg, char *data, uint8_t len)
+{
+I2C1_Initialize();
+I2C1ADB1 = (uint8_t)(address<<1);
+wait4BusFree();
+I2C1CNT = 1;
+I2C1CON0bits.RSEN = 1;
+I2C1CON0bits.S = 1;
+wait4Start();
+sendByte(reg);
+wait4MDRSetcount(len);
+address = (uint8_t)(address<<1);
+I2C1ADB1 = (uint8_t)(address| 0x01);
+I2C1CON0bits.S = 1;
+I2C1CON0bits.RSEN = 0;
+while(len--)
+{
+*data++ = receiveByte();
+}
+wait4Stop();
+}
+
+void i2c1_readNBytes(uint8_t address, char* data, uint8_t len)
+{
+I2C1_Initialize();
+address = (uint8_t)(address<<1);
+I2C1ADB1 = (uint8_t)(address| 0x01);
+wait4BusFree();
+I2C1CNT = len;
+I2C1CON0bits.S = 1;
+wait4Start();
+while(len--)
+{
+*data++ = receiveByte();
+}
+wait4Stop();
+}
