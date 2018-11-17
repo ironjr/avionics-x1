@@ -11,8 +11,8 @@ These problems didn't seem so easy to solve at first. After introducing raspberr
 
 ### Works To Do
 - Write I2C driver of BMP280 pressure/temperature sensor --> done!
-- Write I2C driver of MPU9250 9-axis gyro/accel/magnetometer --> on progress
-- Establish communication channel between raspberry pi and MPU board
+- Write I2C driver of MPU9250 9-axis gyro/accel/magnetometer --> done!
+- Establish communication channel between raspberry pi and MPU board --> on progress
 - XBee test on RPi module with its capability of throughput and reliable transmission distance
 - Integrate the system on a single or multiple PCB boards
 
